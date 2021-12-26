@@ -1,5 +1,6 @@
 .trBackground {
     background-color: #404040;
+    margin-left: 5px;
 }
 .trTitle {
     width: fit-content;
@@ -77,6 +78,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 .trButton {
+    margin-left: 5px;
     margin-top: 5px;
     padding: 3px 5px;
     font-family: Georgia, 'Times New Roman', Times, serif;
