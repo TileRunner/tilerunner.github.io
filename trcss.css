@@ -14,6 +14,34 @@
     margin-top: 5px;
     color: #bfc8ec;
 }
+.trWarning {
+    width: fit-content;
+    background-color: black !important;
+    color: yellow !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.trWarning::before {
+    margin-right: 2px;
+    content: '\00BB';
+}
+.trWarning::after {
+    margin-left: 2px;
+    content: '\00AB';
+}
+.trDanger {
+    width: fit-content;
+    background-color: white !important;
+    color: red !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.trDanger::before {
+    margin-right: 2px;
+    content: '\00BB';
+}
+.trDanger::after {
+    margin-left: 2px;
+    content: '\00AB';
+}
 .trSubtitle {
     margin-top: 5px;
     width: fit-content;
