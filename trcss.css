@@ -20,6 +20,9 @@
     background-color: black;
     color: whitesmoke;
 }
+.trEmphasis::before {
+    content: '\2690';
+}
 .trWarning {
     width: fit-content;
     background-color: black !important;
@@ -28,11 +31,7 @@
 }
 .trWarning::before {
     margin-right: 2px;
-    content: '\00BB';
-}
-.trWarning::after {
-    margin-left: 2px;
-    content: '\00AB';
+    content: '\26A0';
 }
 .trDanger {
     width: fit-content;
@@ -42,11 +41,7 @@
 }
 .trDanger::before {
     margin-right: 2px;
-    content: '\00BB';
-}
-.trDanger::after {
-    margin-left: 2px;
-    content: '\00AB';
+    content: '\26D4';
 }
 .trSubtitle {
     margin-top: 5px;
