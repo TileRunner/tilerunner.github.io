@@ -1,87 +1,120 @@
+:root {
+    --trcssVerticalSpacer: 5px;
+    --trcssPageBG: #404040;
+    --trcssTitleBG: #200F60;
+    --trcssTitleFG: #BFC8EC;
+    --trcssTitleFont: Arial, Helvetica, sans-serif;
+    --trcssSubtitleBG: #200FA0;
+    --trcssSubtitleFG:var(--trcssTitleFG);
+    --trcssSubtitleFont:var(--trcssTitleFont);
+    --trcssTextFG:var(--trcssTitleFG);
+    --trcssTextFont: Verdana, Geneva, Tahoma, sans-serif;
+    --trcssEmphasisBG: black;
+    --trcssEmphasisFG: whitesmoke;
+    --trcssWarningBG: black;
+    --trcssWarningFG: yellow;
+    --trcssDangerBG: white;
+    --trcssDangerFG: red;
+    --trcssTableBorder:var(--trcssTitleBG);
+    --trcssTableBG:#505050;
+    --trcssThBG:var(--trcssSubtitleBG);
+    --trcssThFG:var(--trcssSubtitleFG);
+    --trcssThFont: var(--trcssTitleFont);
+    --trcssTdFG:var(--trcssTextFG);
+    --trcssTdFont:var(--trcssTitleFont);
+    --trcssButtonBG: blue;
+    --trcssButtonFG: whitesmoke;
+    --trcssButtonHoverBG: black;
+    --trcssButtonHoverFG: white;
+    --trcssButtonFont: 'Courier New', Courier, monospace;
+}
 .trBackground {
-    background-color: #404040;
+    background-color: var(--trcssPageBG);
     margin-left: 5px;
 }
 .trTitle {
     width: fit-content;
     padding: 2px 5px;
-    background-color: #200F60;
-    color: #bfc8ec;
+    background-color: var(--trcssTitleBG);
+    color: var(--trcssTitleFG);
     font-size: xx-large;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--trcssTitleFont);
+}
+.trSubtitle {
+    margin-top: var(--trcssVerticalSpacer);
+    width: fit-content;
+    padding: 2px 5px;
+    background-color: var(--trcssSubtitleBG);
+    color: var(--trcssSubtitleFG);
+    font-size: x-large;
+    font-family: var(--trcssSubtitleFont);
 }
 .trParagraph {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-top: 5px;
-    color: #bfc8ec;
+    font-family: var(--trcssTextFont);
+    margin-top: var(--trcssVerticalSpacer);
+    color: var(--trcssTextFG);
 }
 .trEmphasis {
     width: fit-content;
-    background-color: black;
-    color: whitesmoke;
+    background-color: var(--trcssEmphasisBG);
+    color: var(--trcssEmphasisFG);
 }
 .trEmphasis::before {
-    content: '\2690';
+    content: '\2690 \0020'; /* Looks like a flag */
 }
 .trWarning {
     width: fit-content;
-    background-color: black !important;
-    color: yellow !important;
+    background-color: var(--trcssWarningBG) !important;
+    color: var(--trcssWarningFG) !important;
     font-family: Arial, Helvetica, sans-serif;
 }
 .trWarning::before {
     margin-right: 2px;
-    content: '\26A0';
+    content: '\26A0'; /* Looks like a ! inside a triangle */
 }
 .trDanger {
     width: fit-content;
-    background-color: white !important;
-    color: red !important;
+    background-color: var(--trcssDangerBG) !important;
+    color: var(--trcssDangerFG) !important;
     font-family: Arial, Helvetica, sans-serif;
 }
 .trDanger::before {
     margin-right: 2px;
-    content: '\26D4';
-}
-.trSubtitle {
-    margin-top: 5px;
-    width: fit-content;
-    padding: 2px 5px;
-    background-color: #200FA0;
-    color: #bfc8ec;
-    font-size: x-large;
-    font-family: Arial, Helvetica, sans-serif;
+    content: '\26D4'; /* Looks like a no entry sign */
 }
 .trTable {
     padding: 5px;
-    background-color: #606060;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-width: 10px;
-    border-style: groove;
-    border-color: #200F60 #bfc8ec;
+    background-color: var(--trcssTableBG);
+    margin-top: var(--trcssVerticalSpacer);
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--trcssTableBorder);
 }
 .trTable th {
-    background-color: #200FA0;
-    color: #bfc8ec;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--trcssThBG);
+    color: var(--trcssThFG);
+    font-family: var(--trcssThFont);
+    font-weight: normal;
     padding: 3px;
     text-align: left;
 }
 .trTable td {
-    color: #bfc8ec;
-    font-family: Arial, Helvetica, sans-serif;
+    color: var(--trcssTdFG);
+    font-family: var(--trcssTdFont);
 }
 .trButton {
-    margin-left: 5px;
-    margin-top: 5px;
-    padding: 3px 5px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    float: none;
+    font-family: var(--trcssButtonFont);
     font-size: large;
-    border-radius: 5%;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #000000;
-    background-color: #0000ff;
-    color: #bfc8ec;
+    border: 1px solid var(--trcssButtonFG);
+    border-radius: 5px;
+    background-color: var(--trcssButtonBG);
+    color: var(--trcssButtonFG);
+    transition-duration: 0.4s;
+}
+.trButton:hover {
+    border: 1px solid var(--trcssButtonHoverFG);
+    background-color: var(--trcssButtonHoverBG);
+    color: var(--trcssButtonHoverFG);
+    cursor: pointer;
 }
