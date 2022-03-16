@@ -150,3 +150,68 @@
 .trBackspace::before {
     content: '\003Cx';
 }
+.trOptionsDiv {
+    margin-top: 5px;
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+    width: fit-content;
+    padding: 2px 3px;
+    border: 1px solid blue;
+    border-radius: 10px;
+}
+.trOptionsHeader {
+    font-size: 25px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+.trOptionsRadioOn {
+    margin-left: 5px;
+    box-shadow: inset 0 0 0 4px cyan;
+    background-color: black;
+    border: 1px solid;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
+.trOptionsRadioOff {
+    margin-left: 5px;
+    box-shadow: inset 0 0 0 4px cyan;
+    background-color: cyan;
+    border: 1px solid;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
+.trOptionsRadioLabel {
+    margin-left: 5px;
+    margin-right: 10px;
+    vertical-align: top;
+}
+.trOptionsCheckboxOn {
+    vertical-align: top;
+    background-color: cyan;
+    margin-left: 5px;
+    border: 1px solid;
+    border-radius: 0%;
+    width: 30px;
+    height: 30px;
+}
+.trOptionsCheckboxOn::after {
+    content: '\2714';
+    font-weight: bolder;
+    font-size: larger;
+}
+.trOptionsCheckboxOff {
+    margin-left: 5px;
+    background-color: cyan;
+    border: 1px solid;
+    border-radius: 0%;
+    width: 30px;
+    height: 30px;
+}
+.trOptionsCheckboxLabel {
+    margin-left: 5px;
+    margin-right: 10px;
+    vertical-align: top;
+}
