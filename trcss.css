@@ -200,7 +200,10 @@
 .trOptionsCheckboxOn::after {
     content: '\2714';
     font-weight: bolder;
-    font-size: larger;
+    font-size: medium;
+}
+.trOptionsCheckboxOn:focus {
+    outline: none;
 }
 .trOptionsCheckboxOff {
     margin-left: 5px;
@@ -209,6 +212,9 @@
     border-radius: 0%;
     width: 30px;
     height: 30px;
+}
+.trOptionsCheckboxOff:focus {
+    outline: none;
 }
 .trOptionsCheckboxLabel {
     margin-left: 5px;
