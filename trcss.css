@@ -252,13 +252,55 @@
     left: 0px;
     top: 3px;
 }
-/* The check mark (<div className="checkbox On">) */
+/* The check mark (<div className="trCheckbox On">) */
 .trCheckbox.On label::after {
     height: 5px;
     width: 9px;
     border-left: 2px solid;
     border-bottom: 2px solid;
     transform: rotate(-45deg);
+    left: 4px;
+    top: 7px;
+}
+
+
+
+
+.trRadio {
+    line-height: 24px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.trRadio label {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    /* 16px of the radio circle and 6px between it and text*/
+    padding-left: 22px;
+}
+.trRadio label::before,
+.trRadio label::after {
+    position: absolute;
+    content: "";
+    display: inline-block;
+}
+/* The circle */
+.trRadio label::before {
+    height: 14px;
+    width: 14px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: blue;
+    left: 0px;
+    top: 3px;
+}
+/* The circle filler (<div className="trRadio On"> ... use <span> instead of <div> to make them side by side) */
+.trRadio.On label::after {
+    height: 8px;
+    width: 8px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: white;
     left: 4px;
     top: 7px;
 }
