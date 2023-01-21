@@ -13,9 +13,20 @@ title: Christopher Sykes
 		<li>Fry Your Brain Game <a href="https://tilerunner.github.io/binary-for-ryu/">Visit</a></li>
 		<li>OWL Memorization <a href="https://www.facebook.com/groups/735320253202003/">Facebook Group</a></li>
 	</ul>
-	<p>Click emoji to copy to clipboard:
-		<span onclick="navigator.clipboard.writeText("😀")>😀</span>
-		<span onclick="navigator.clipboard.writeText("🤣")>🤣</span>
-		<span onclick="navigator.clipboard.writeText("🤔")>🤔</span>
+	<p>Click an emoji to copy it to your clipboard:
+		<span onclick="c1()">😀</span>
+		<span onclick="c2()">🤣</span>
+		<span onclick="c3()">🤔</span>
 	</p>
 </div><!-- /.blurb -->
+<script>
+function c1() {
+	navigator.clipboard.writeText("😀");
+}
+function c2() {
+	navigator.clipboard.writeText("🤣");
+}
+function c3() {
+	navigator.clipboard.writeText("🤔");
+}
+</script>
