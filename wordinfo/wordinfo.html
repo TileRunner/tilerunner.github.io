@@ -16,15 +16,55 @@
 
   <body>
 
-    <h1 class="help-hover-text">Word Info <span class="tooltip-text">Enter a word then click Get Info</span></h1>
-    <h3>NWL2023 lexicon used with permission from NASPA <a href='https://www.scrabbleplayers.org/landing/tilerunner'>Visit NASPA</a></h3>
-
+    <h1>Enter a word then press Enter or click Get Info</h1>
     <div>
         <label for="input-word">Word:</label>
         <input id="input-word" type="text">
         <button id="get-info-button" class="button-test">Get Info</button>
     </div>
-    <div id="info-div" class="info-div"></div>
+    <div id="info-div" class="info-div">
+      <table>
+        <tbody>
+          <tr>
+            <td>Validity:</td>
+            <td id="validity" class="word-display"></td>
+          </tr>
+          <tr>
+            <td>Drops:</td>
+            <td id="drops"></td>
+          </tr>
+          <tr>
+            <td>Inserts:</td>
+            <td id="inserts"></td>
+          </tr>
+          <tr>
+            <td>Swaps:</td>
+            <td id="swaps"></td>
+          </tr>
+          <tr>
+            <td>Anagrams:</td>
+            <td id="anagrams"></td>
+          </tr>
+          <tr>
+            <td>Extend F2:</td>
+            <td id="ext-f2"></td>
+          </tr>
+          <tr>
+            <td>Extend B2:</td>
+            <td id="ext-b2"></td>
+          </tr>
+          <tr>
+            <td>Extend F3:</td>
+            <td id="ext-f3"></td>
+          </tr>
+          <tr>
+            <td>Extend B3:</td>
+            <td id="ext-b3"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>NWL2023 lexicon used with permission from NASPA <a href='https://www.scrabbleplayers.org/landing/tilerunner'>Visit NASPA</a></h3>
 
     <script src="wordinfo.js"></script>
 

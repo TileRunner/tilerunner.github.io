@@ -1,8 +1,25 @@
 document.getElementById("get-info-button").addEventListener("click", clickGetInfoButton);
 let info = {};
 const infoDiv = document.getElementById("info-div");
+infoDiv.style.visibility = "hidden";
 const inputWordElelemt = document.getElementById("input-word");
+inputWordElelemt.focus();
+const validityElement = document.getElementById("validity");
+const dropsElement = document.getElementById("drops");
+const insertsElement = document.getElementById("inserts");
+const swapsElement = document.getElementById("swaps");
+const anagramsElement = document.getElementById("anagrams");
+const fex2Element = document.getElementById("ext-f2");
+const bex2Element = document.getElementById("ext-b2");
+const fex3Element = document.getElementById("ext-f3");
+const bex3Element = document.getElementById("ext-b3");
 const baseurl = 'https://webappscrabbleclub.azurewebsites.net/api/Values/NWL2023/info?word='
+window.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        // Handle Enter key press
+        clickGetInfoButton();
+    }
+});
 
 function clickGetInfoButton() {
     getInfo().then(() => displayInfo());
@@ -19,36 +36,24 @@ async function getInfo() {
 }
 
 function displayInfo() {
-    infoDiv.innerHTML = "";
-    let tableElement = document.createElement("table");
-    let tbodyElement = document.createElement("tbody");
-    displayWord(tbodyElement);
-    displayDrops(tbodyElement);
-    displayInserts(tbodyElement);
-    displaySwaps(tbodyElement);
-    displayAnagrams(tbodyElement);
-    tableElement.appendChild(tbodyElement);
-    infoDiv.appendChild(tableElement);
+    displayWord();
+    displayDrops();
+    displayInserts();
+    displaySwaps();
+    displayAnagrams();
+    displayFrontExtensions(fex2Element, info.fexLen2);
+    displayBackExtensions(bex2Element, info.bexLen2);
+    displayFrontExtensions(fex3Element, info.fexLen3);
+    displayBackExtensions(bex3Element, info.bexLen3);
+    infoDiv.style.visibility = "visible";
+    inputWordElelemt.focus();
 }
-function displayWord(tbodyElement) {
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td2.classList.add("word-display");
-    if (!info.exists) {
-        td2.classList.toggle("invalid");
-    }
-    td1.textContent = 'Validity:';
-    td2.textContent = `${info.word} is ${info.exists ? 'valid' : 'invalid'}`;
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbodyElement.appendChild(tr);
+function displayWord() {
+    validityElement.setAttribute("invalid",!info.exists);
+    validityElement.textContent = `${info.word} is ${info.exists ? 'valid' : 'invalid'}`;
 }
-function displayDrops(tbodyElement) {
+function displayDrops() {
     // info.drops is an array of "Y" / "N" if there are any drops, otherwise an empty array
-    if (info.drops.length === 0) {
-        return;
-    }
     let drops = [];
     info.drops.forEach((drop,index) => {
         if (drop === "Y") {
@@ -59,17 +64,9 @@ function displayDrops(tbodyElement) {
             }
         }
     });
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td2.classList.add("drops-display");
-    td1.textContent = `Drops:`;
-    td2.textContent = `${drops.join(", ")}`;
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbodyElement.appendChild(tr);
+    dropsElement.textContent = `${drops.join(", ")}`;
 }
-function displayInserts(tbodyElement) {
+function displayInserts() {
     // info.inserts array has the insertable letters at 0 (front hooks) through (inner hooks) word length (back hooks)
     let inserts = [];
     info.inserts.forEach((insert,index) => {
@@ -81,17 +78,9 @@ function displayInserts(tbodyElement) {
             }
         }
     });
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td2.classList.add("inserts-display");
-    td1.textContent = `Inserts:`;
-    td2.textContent = `${inserts.join(", ")}`;
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbodyElement.appendChild(tr);
+    insertsElement.textContent = `${inserts.join(", ")}`;
 }
-function displaySwaps(tbodyElement) {
+function displaySwaps() {
     // info.swaps array has the swappable letters at 0 (1st letter) through word length - 1 (last letter)
     let swaps = [];
     info.swaps.forEach((swap,index) => {
@@ -103,27 +92,14 @@ function displaySwaps(tbodyElement) {
             }
         }
     });
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td2.classList.add("swaps-display");
-    td1.textContent = `Swaps:`;
-    td2.textContent = `${swaps.join(", ")}`;
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbodyElement.appendChild(tr);
+    swapsElement.textContent = `${swaps.join(", ")}`;
 }
-function displayAnagrams(tbodyElement) {
-    if (info.anagrams.length === 0) {
-        return;
-    }
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td2.classList.add("anagrams-display");
-    td1.textContent = `Anagrams:`;
-    td2.textContent = `${info.anagrams.join(", ").toUpperCase()}`;
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbodyElement.appendChild(tr);
+function displayAnagrams() {
+    anagramsElement.textContent = `${info.anagrams.join(", ").toUpperCase()}`;
+}
+function displayFrontExtensions(exElement, exts) {
+    exElement.textContent = exts.map((ext) => {return ext + info.word;}).join(", ");
+}
+function displayBackExtensions(exElement, exts) {
+    exElement.textContent = exts.map((ext) => {return info.word + ext;}).join(", ");
 }

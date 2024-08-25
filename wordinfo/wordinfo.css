@@ -7,49 +7,26 @@ label, input, button {
 input {
     background-color: lightblue;
 }
-/* Tooltip container */
-.help-hover-text {
-    position: relative;
-    display: inline-block;
-    /* Add other styles as needed */
-}
-
-/* Tooltip text */
-.help-hover-text .tooltip-text {
-    visibility: hidden;
-    /* Other styles for the tooltip text */
-}
-
-/* Show the tooltip text when hovering over the container */
-.help-hover-text:hover .tooltip-text {
-    visibility: visible;
-    font-style: italic;
-    color: lightblue;
-    /* Other styles for the visible tooltip text */
-}
 .info-div {
     font-size: larger;
     padding-bottom: 10px;
 }
-.info-div table tr  {
+tr  {
     max-width: 90vw;
     font-size: 4vh;
 }
-.word-display {
+tr td:nth-child(1) {
+    width: 15vw;
+    background-color: lightslategray;
+    text-align: right;
+    padding-right: 2vw;
+}
+tr:nth-child(odd) td:nth-child(2) {
     background-color: goldenrod;
 }
-.word-display.invalid {
-    background-color: red;
-}
-.drops-display {
+tr:nth-child(even) td:nth-child(2) {
     background-color: burlywood;
 }
-.inserts-display {
-    background-color: goldenrod;
-}
-.swaps-display {
-    background-color: burlywood;
-}
-.anagrams-display {
-    background-color: goldenrod;
+.word-display[invalid="true"] {
+    background-color: red !important;
 }
