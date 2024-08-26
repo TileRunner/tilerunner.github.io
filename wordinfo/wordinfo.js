@@ -1,7 +1,6 @@
 document.getElementById("get-info-button").addEventListener("click", clickGetInfoButton);
 let info = {};
 const infoDiv = document.getElementById("info-div");
-infoDiv.style.visibility = "hidden";
 const inputWordElelemt = document.getElementById("input-word");
 inputWordElelemt.focus();
 const stemsElement = document.getElementById("stems");
@@ -21,6 +20,17 @@ window.addEventListener('keydown', function(e) {
         clickGetInfoButton();
     }
 });
+
+stemsElement.textContent = "Stem letters will go here. You can add a stem letter to the word and rearrange into a valid new word.";
+validityElement.textContent = "Here will display whether the word is valid";
+dropsElement.textContent = "Words formed by dropping a letter go here";
+insertsElement.textContent = "Words formed by inserting a letter go here";
+swapsElement.textContent = "Words formed by swapping a letter go here";
+anagramsElement.textContent = "Anagrams are displayed here";
+fex2Element.textContent = "2-letter front extensions go here";
+fex3Element.textContent = "3-letter front extensions go here";
+bex2Element.textContent = "2-letter back extensions go here";
+bex3Element.textContent = "3-letter back extensions go here";
 
 function clickGetInfoButton() {
     getInfo().then(() => displayInfo());
@@ -47,7 +57,6 @@ function displayInfo() {
     displayBackExtensions(bex2Element, info.bexLen2);
     displayFrontExtensions(fex3Element, info.fexLen3);
     displayBackExtensions(bex3Element, info.bexLen3);
-    infoDiv.style.visibility = "visible";
     inputWordElelemt.focus();
 }
 function displayWord() {
