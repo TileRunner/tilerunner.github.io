@@ -6,6 +6,7 @@ label, input, button {
 }
 input {
     background-color: lightblue;
+    width: 15vw;
 }
 .info-div {
     font-size: larger;

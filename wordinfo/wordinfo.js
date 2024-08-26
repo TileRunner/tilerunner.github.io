@@ -4,6 +4,7 @@ const infoDiv = document.getElementById("info-div");
 infoDiv.style.visibility = "hidden";
 const inputWordElelemt = document.getElementById("input-word");
 inputWordElelemt.focus();
+const stemsElement = document.getElementById("stems");
 const validityElement = document.getElementById("validity");
 const dropsElement = document.getElementById("drops");
 const insertsElement = document.getElementById("inserts");
@@ -37,6 +38,7 @@ async function getInfo() {
 
 function displayInfo() {
     displayWord();
+    displayStems();
     displayDrops();
     displayInserts();
     displaySwaps();
@@ -51,6 +53,9 @@ function displayInfo() {
 function displayWord() {
     validityElement.setAttribute("invalid",!info.exists);
     validityElement.textContent = `${info.word} is ${info.exists ? 'valid' : 'invalid'}`;
+}
+function displayStems() {
+    stemsElement.textContent = info.stemLetters;
 }
 function displayDrops() {
     // info.drops is an array of "Y" / "N" if there are any drops, otherwise an empty array
