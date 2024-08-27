@@ -1,6 +1,4 @@
-document.getElementById("get-info-button").addEventListener("click", clickGetInfoButton);
 let info = {};
-const infoDiv = document.getElementById("info-div");
 const inputWordElelemt = document.getElementById("input-word");
 inputWordElelemt.focus();
 const stemsElement = document.getElementById("stems");
@@ -21,7 +19,7 @@ window.addEventListener('keydown', function(e) {
     }
 });
 
-stemsElement.textContent = "Stem letters will go here. You can add a stem letter to the word and rearrange into a valid new word.";
+stemsElement.textContent = "Letters you can add to the word and rearrange into a valid new word.";
 validityElement.textContent = "Here will display whether the word is valid";
 dropsElement.textContent = "Words formed by dropping a letter go here";
 insertsElement.textContent = "Words formed by inserting a letter go here";
