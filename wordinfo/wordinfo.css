@@ -26,7 +26,6 @@ tr  {
     border-bottom: 1px solid #dddddd;
 }
 tr td:nth-child(1) {
-    max-width: 10vw;
     text-align: right;
 }
 tr td:nth-child(2) {
