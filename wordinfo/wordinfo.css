@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(127, 213, 240);
+    background-color: #b9e7f5;
 }
 * {
     font-size: 3vh;
@@ -11,6 +11,7 @@ body {
 }
 input {
     margin-bottom: 1vh;
+    text-transform: uppercase;
 }
 .info-div {
     font-size: larger;
@@ -18,7 +19,6 @@ input {
 table {
     border-collapse: collapse;
     box-shadow: 0 0 2vw rgba(0,0,0,0.15);
-    font-family: sans-serif;
     margin-bottom: 1vh;
 }
 tr  {
@@ -35,15 +35,17 @@ tr td:nth-child(1) {
 }
 tr td:nth-child(2) {
     padding-left: 1vw;
-    font-family: monospace;
 }
 tr:nth-child(odd) {
-    background-color: dodgerblue;
+    background-color: #3b88ca;
 }
 tr:nth-child(even) {
-    background-color: rgb(204, 164, 177);
+    background-color: #f6c0c0;
     color: black;
 }
-.word-display[invalid="true"] {
-    background-color: red !important;
+.word-display {
+    font-family: monospace;
+}
+td[invalid="true"] {
+    background-color: #a92e2e;
 }

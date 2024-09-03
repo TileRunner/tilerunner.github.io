@@ -3,6 +3,8 @@ const inputWordElelemt = document.getElementById("input-word");
 inputWordElelemt.focus();
 const stemsElement = document.getElementById("stems");
 const validityElement = document.getElementById("validity");
+const validityWordElement = document.getElementById("validity-word");
+const validityTextElement = document.getElementById("validity-text");
 const dropsElement = document.getElementById("drops");
 const insertsElement = document.getElementById("inserts");
 const swapsElement = document.getElementById("swaps");
@@ -20,7 +22,7 @@ window.addEventListener('keydown', function(e) {
 });
 
 stemsElement.textContent = "Letters you can add to the word and rearrange into a valid new word.";
-validityElement.textContent = "Here will display whether the word is valid";
+validityTextElement.textContent = "Here will display whether the word is valid";
 dropsElement.textContent = "Words formed by dropping a letter go here";
 insertsElement.textContent = "Words formed by inserting a letter go here";
 swapsElement.textContent = "Words formed by swapping a letter go here";
@@ -59,7 +61,8 @@ function displayInfo() {
 }
 function displayWord() {
     validityElement.setAttribute("invalid",!info.exists);
-    validityElement.textContent = `${info.word} is ${info.exists ? 'valid' : 'invalid'}`;
+    validityWordElement.textContent = info.word;
+    validityTextElement.textContent = ` is ${info.exists ? 'valid' : 'invalid'}`;
 }
 function displayStems() {
     stemsElement.textContent = info.stemLetters;
