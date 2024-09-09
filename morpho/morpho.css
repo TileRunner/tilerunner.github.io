@@ -1,0 +1,26 @@
+body {
+    background-color: #b9e7f5;
+}
+.acknowledge {
+    font-size: 2vh !important;
+    font-style: italic;
+}
+.info-div {
+    font-size: 8vh;
+}
+.top-row {
+    background-color: #f6c0c0;
+}
+.middle-row {
+    background-color: #3b88ca;
+}
+.bottom-row {
+    background-color: #a92e2e;
+}
+td {
+    width: 12vw;
+    height: 12vh;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
