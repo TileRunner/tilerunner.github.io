@@ -1,9 +1,7 @@
-const baseurl = 'https://webappscrabbleclub.azurewebsites.net/api/Values';
-
 async function callForPuzzle(wordLength)  {
     let data = {};
     try {
-        let url = `${baseurl}/morpho?rows=${wordLength+1}&cols=${wordLength}`;
+        let url = `https://webappscrabbleclub.azurewebsites.net/api/Values/morpho?rows=${wordLength+1}&cols=${wordLength}`;
         const response = await fetch(url);
         let json = await response.json();
         if (json.value.fail) {
