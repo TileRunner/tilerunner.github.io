@@ -47,31 +47,22 @@ td {
 
 
 .clicked {
-    border: 3px groove black;
+    border: 2px thin black;
 }
 
-/* Define the keyframes for the dancing border animation */
-@keyframes dance {
+/* Define the keyframes for the animation */
+@keyframes unclicked {
     0% {
-        border: 3px solid whitesmoke;
-    }
-    25% {
-        border: 3px dashed whitesmoke;
+        border: 2px inset whitesmoke;
     }
     50% {
-        border: 3px solid whitesmoke;
+        border: 2px outset whitesmoke;
     }
-    75% {
-        border: 3px dashed whitesmoke;
-    }
-    100% {
-        border: 3px solid whitesmoke;
-    }
-  }
+}
   
-/* Apply the animation to a div element */
+/* Apply the animation by css selector */
 .unclicked {
-    border: 3px solid whitesmoke;
-    animation: dance 4s infinite;
-  }
+    border: 2px inset whitesmoke;
+    animation: unclicked 4s infinite;
+}
   
