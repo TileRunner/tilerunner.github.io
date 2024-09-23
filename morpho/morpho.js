@@ -6,7 +6,6 @@ let wordLength;
 
 const tableBody = document.getElementById("table-body");
 const optionsDiv = document.getElementById("options-div");
-const optionsPrompt = document.getElementById("options-prompt");
 const infoDiv = document.getElementById("info-div");
 const restartButton = document.getElementById("restart-puzzle");
 
@@ -48,7 +47,13 @@ function displayInfo() {
             tdElement.textContent = info.puzzle.rows[r].letters[c];
             trElement.append(tdElement);
             if (r === wordLength && nextRow < wordLength) {
-                tdElement.addEventListener("click", () => handleLastRowClick(c));
+                if (info.puzzle.rows[r].letters[c] === info.puzzle.rows[nextRow-1].letters[c])
+                {
+                    tdElement.classList.add('clicked');
+                } else {
+                    tdElement.classList.add('unclicked');
+                    tdElement.addEventListener("click", () => handleLastRowClick(c));
+                }
             }
         }
     }
@@ -70,7 +75,6 @@ async function handleLastRowClick(colIndex) {
     displayInfo();
     if (nextRow === wordLength) {
         optionsDiv.style.display = "block";
-        optionsPrompt.textContent = "Click to generate another";
     }
 }
 

@@ -44,3 +44,34 @@ td {
     vertical-align: middle;
     text-transform: uppercase;
 }
+
+
+.clicked {
+    border: 3px groove black;
+}
+
+/* Define the keyframes for the dancing border animation */
+@keyframes dance {
+    0% {
+        border: 3px solid whitesmoke;
+    }
+    25% {
+        border: 3px dashed whitesmoke;
+    }
+    50% {
+        border: 3px solid whitesmoke;
+    }
+    75% {
+        border: 3px dashed whitesmoke;
+    }
+    100% {
+        border: 3px solid whitesmoke;
+    }
+  }
+  
+/* Apply the animation to a div element */
+.unclicked {
+    border: 3px solid whitesmoke;
+    animation: dance 4s infinite;
+  }
+  
