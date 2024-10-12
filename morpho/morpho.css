@@ -47,22 +47,11 @@ td {
 
 
 .clicked {
-    border: 2px thin black;
+    background-color: #3b88ca;
 }
 
-/* Define the keyframes for the animation */
-@keyframes unclicked {
-    0% {
-        border: 2px inset whitesmoke;
-    }
-    50% {
-        border: 2px outset whitesmoke;
-    }
-}
-  
-/* Apply the animation by css selector */
 .unclicked {
     border: 2px inset whitesmoke;
-    animation: unclicked 4s infinite;
+    border-radius: 10%;
 }
   
