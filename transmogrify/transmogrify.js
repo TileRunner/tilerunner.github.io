@@ -11,7 +11,7 @@ const e_validWords = document.getElementById("valid-words-div");
 const e_solved = document.getElementById("solved");
 infoDiv.style.display = "none";
 restartButton.addEventListener("click", () => handleRestartClick());
-for (let l = 3; l < 8; l++) {
+for (let l = 2; l < 8; l++) {
     document.getElementById(`${l}-move-puzzle`).addEventListener("click", () => generatePuzzle(l));  
 }
 
