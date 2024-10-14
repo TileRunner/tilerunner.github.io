@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morpho - Work In Progress</title>
+    <link rel="stylesheet" href="transmogrify.css">
+  </head>
+  <body>
+    <div id="options-div" class="options-div">
+        <button id="3-move-puzzle">3</button>
+        <button id="4-move-puzzle">4</button>
+        <button id="5-move-puzzle">5</button>
+        <button id="6-move-puzzle">6</button>
+        <button id="7-move-puzzle">7</button>
+    </div>
+    <div id="info-div" class="info-div">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="tm_puzzleDiv">
+                            <span id="start-word"></span>
+                            <span>to</span>
+                            <span id="target-word"></span>
+                            <br/>
+                            <span>Target:</span>
+                            <span id="num-moves"></span>
+                            <span>moves</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="tm_solutionOuterDiv">
+                            <div class="tm_solutionDiv">
+                                <table>
+                                    <tbody id="solution-rows">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="valid-words-div" class="tm_validWordsDiv">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span id="solved"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="restart-puzzle">Restart</button>
+    </div>
+    <div>
+      <p>Click a number to generate a puzzle with that minimum number of moves to solve.</p>
+      <p>When the puzzle displays, click one of the displayed next move words to use that move.</p>
+      <p>The goal is to get from the top word to the bottom word by changing one of the below ways at a time:
+        <ul>
+            <li>Swap a letter</li>
+            <li>Drop a letter</li>
+            <li>Insert a letter</li>
+            <li>Anagram the word</li>
+        </ul>
+      </p>
+    </div>
+    <div>
+      <span class="acknowledge">NWL2023 lexicon used with permission from <a href='https://www.scrabbleplayers.org/landing/tilerunner'>NASPA</a></span>
+    </div>
+    <script src="callForPuzzle.js"></script>
+    <script src="transmogrify.js"></script>
+  </body>
+</html>
+
+
+
