@@ -1,3 +1,10 @@
+body {
+    background-color: #404040;
+    color: #e0e0e0;
+}
+a {
+    color: lightblue;
+}
 .tm_puzzleDiv {
     text-align: center;
     padding: 5px;

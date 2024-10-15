@@ -1,6 +1,8 @@
 let info = {}; // No info yet
 let saveInfo = "{}";
 let numMoves = 0; // No puzzle yet
+const e_options = document.getElementById("options-div");
+const e_loading = document.getElementById("loading-div");
 const infoDiv = document.getElementById("info-div");
 const restartButton = document.getElementById("restart-puzzle");
 const e_startWord = document.getElementById("start-word");
@@ -20,6 +22,8 @@ function handleRestartClick() {
     displayInfo();
 }
 function generatePuzzle(chosenLength) {
+    e_options.style.display = "none";
+    e_loading.textContent = "Feeding the cat, hang on...";
     numMoves = chosenLength;
     getInfo().then(() => displayInfo());
 }
@@ -33,11 +37,14 @@ async function getInfo() {
 }
 
 function displayInfo() {
+    e_solved.textContent = "";
     e_startWord.textContent = info.startWord;
     e_targetWord.textContent = info.targetWord;
     e_numMoves.textContent = numMoves;
     e_validWords.innerHTML = ""; // Clear previous
     e_solutionRows.innerHTML = ""; // Clear previous
+    let e_solving_r = document.createElement("tr");
+    let e_solving_c = document.createElement("td");
     if (info.solving || info.solved) {
         // Start word
         let e_sw_r = document.createElement("tr");
@@ -67,6 +74,8 @@ function displayInfo() {
             e_dw_r.appendChild(e_dw_c);
             e_solutionRows.appendChild(e_dw_r);
         }
+        // Solving row
+        e_solutionRows.appendChild(e_solving_r);
         // Up words used
         let lastUpWord = info.targetWord;
         for (let i = info.upWords.length - 1; i > -1; i--) {
@@ -99,7 +108,11 @@ function displayInfo() {
         if (info.validNextDownWords.includes(lastUpWord) || info.validNextUpWords.includes(lastDownWord)) {
             info.solved = true;
             info.solving = false;
-            e_solved.textContent = "Solved!";
+            e_solved.textContent = `Solved in ${info.downWords.length + info.upWords.length + 1} moves!`;
+            e_options.style.display = "block";
+        } else {
+            e_solving_c.textContent = "? ? ?";
+            e_solving_r.appendChild(e_solving_c);
         }
 
     }
@@ -131,6 +144,7 @@ function displayInfo() {
             e_validWords.appendChild(e_vnw);
         }
     }
+    e_loading.textContent = "";
 }
 
 async function handleClickValidDownWord(word) {
