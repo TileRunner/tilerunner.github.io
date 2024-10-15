@@ -69,7 +69,7 @@ function displayInfo() {
         }
         // Up words used
         let lastUpWord = info.targetWord;
-        for (let i = 0; i < info.upWords.length; i++) {
+        for (let i = info.upWords.length - 1; i > -1; i--) {
             lastUpWord = info.upWords[i];
             let e_uw_r = document.createElement("tr");
             let e_uw_c = document.createElement("td");
