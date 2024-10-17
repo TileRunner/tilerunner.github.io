@@ -48,13 +48,6 @@ a {
 .tm_solutionOuterDiv {
     margin-top: 5px;
 }
-.artwork {
-    background-image: url('transmogrify.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 225px;
-    width: 370px;
-}
 .tm_solutionDiv {
     align-items: center;
 }
@@ -110,4 +103,26 @@ a {
     font-weight: bold;
     cursor: pointer;
     padding-right: 2px;
+}
+@keyframes fadein {
+    0% {opacity: 0%;}
+    10% {opacity: 10%;}
+    20% {opacity: 20%;}
+    30% {opacity: 30%;}
+    40% {opacity: 40%;}
+    50% {opacity: 50%;}
+    60% {opacity: 60%;}
+    70% {opacity: 70%;}
+    80% {opacity: 80%;}
+    90% {opacity: 90%;}
+    100% {opacity: 100%;}
+}
+.artwork {
+    background-image: url('transmogrify.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 225px;
+    width: 370px;
+    animation-name: fadein;
+    animation-duration: 2s;
 }
