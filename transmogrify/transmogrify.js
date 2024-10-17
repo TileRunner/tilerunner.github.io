@@ -3,16 +3,17 @@ let saveInfo = "{}";
 let numMoves = 0; // No puzzle yet
 const e_options = document.getElementById("options-div");
 const e_loading = document.getElementById("loading-div");
-const infoDiv = document.getElementById("info-div");
-const restartButton = document.getElementById("restart-puzzle");
+const e_restartButton = document.getElementById("restart-puzzle");
+const e_artwork = document.getElementById("artwork");
 const e_startWord = document.getElementById("start-word");
 const e_targetWord = document.getElementById("target-word");
 const e_solutionRows = document.getElementById("solution-rows");
 const e_numMoves = document.getElementById("num-moves");
 const e_validWords = document.getElementById("valid-words-div");
 const e_solved = document.getElementById("solved");
-infoDiv.style.display = "none";
-restartButton.addEventListener("click", () => handleRestartClick());
+e_restartButton.style.display = "none";
+e_restartButton.addEventListener("click", () => handleRestartClick());
+e_artwork.style.display = "none";
 for (let l = 2; l < 8; l++) {
     document.getElementById(`${l}-move-puzzle`).addEventListener("click", () => generatePuzzle(l));  
 }
@@ -32,7 +33,6 @@ async function getInfo() {
     // Call API to get info
     info = await callForPuzzle(numMoves);
     saveInfo = JSON.stringify(info);
-    infoDiv.style.display = "block";
     e_solved.textContent = "Happy Solving!";
 }
 
@@ -49,28 +49,20 @@ function displayInfo() {
         // Start word
         let e_sw_r = document.createElement("tr");
         let e_sw_c = document.createElement("td");
-        let e_sw_s1 = document.createElement("span");
-        let e_sw_s2 = document.createElement("span");
-        e_sw_s1.classList.add("tm_arrow");
-        e_sw_s1.textContent = "↧";
-        e_sw_s2.textContent = info.startWord;
+        let e_sw_s = document.createElement("span");
+        e_sw_s.textContent = info.startWord;
         e_solutionRows.appendChild(e_sw_r);
         e_sw_r.appendChild(e_sw_c);
-        e_sw_c.appendChild(e_sw_s1);
-        e_sw_c.appendChild(e_sw_s2);
+        e_sw_c.appendChild(e_sw_s);
         // Down words used
         let lastDownWord = info.startWord;
         for (let i = 0; i < info.downWords.length; i++) {
             lastDownWord = info.downWords[i];
             let e_dw_r = document.createElement("tr");
             let e_dw_c = document.createElement("td");
-            let e_dw_s1 = document.createElement("span");
-            let e_dw_s2 = document.createElement("span");
-            e_dw_s1.classList.add("tm_arrow");
-            e_dw_s1.textContent = "↧";
-            e_dw_s2.textContent = lastDownWord;
-            e_dw_c.appendChild(e_dw_s1);
-            e_dw_c.appendChild(e_dw_s2);
+            let e_dw_s = document.createElement("span");
+            e_dw_s.textContent = lastDownWord;
+            e_dw_c.appendChild(e_dw_s);
             e_dw_r.appendChild(e_dw_c);
             e_solutionRows.appendChild(e_dw_r);
         }
@@ -82,28 +74,20 @@ function displayInfo() {
             lastUpWord = info.upWords[i];
             let e_uw_r = document.createElement("tr");
             let e_uw_c = document.createElement("td");
-            let e_uw_s1 = document.createElement("span");
-            let e_uw_s2 = document.createElement("span");
-            e_uw_s1.textContent = lastUpWord;
-            e_uw_s2.classList.add("tm_arrow");
-            e_uw_s2.textContent = "↥";
-            e_uw_c.appendChild(e_uw_s1);
-            e_uw_c.appendChild(e_uw_s2);
+            let e_uw_s = document.createElement("span");
+            e_uw_s.textContent = lastUpWord;
+            e_uw_c.appendChild(e_uw_s);
             e_uw_r.appendChild(e_uw_c);
             e_solutionRows.appendChild(e_uw_r);
         }
         // Target word
         let e_tw_r = document.createElement("tr");
         let e_tw_c = document.createElement("td");
-        let e_tw_s1 = document.createElement("span");
-        e_tw_s1.textContent = info.targetWord;
-        let e_tw_s2 = document.createElement("span");
-        e_tw_s2.classList.add("tm_arrow");
-        e_tw_s2.textContent = "↥";
+        let e_tw_s = document.createElement("span");
+        e_tw_s.textContent = info.targetWord;
         e_solutionRows.appendChild(e_tw_r);
         e_tw_r.appendChild(e_tw_c);
-        e_tw_c.appendChild(e_tw_s1);
-        e_tw_c.appendChild(e_tw_s2);
+        e_tw_c.appendChild(e_tw_s);
         // Solved?
         if (info.validNextDownWords.includes(lastUpWord) || info.validNextUpWords.includes(lastDownWord)) {
             info.solved = true;
@@ -143,6 +127,16 @@ function displayInfo() {
             e_vnw.addEventListener("click", () => handleClickValidUpWord(info.validNextUpWords[i]));
             e_validWords.appendChild(e_vnw);
         }
+    }
+    if (info.solving)
+    {
+        e_restartButton.style.display = "block";
+        e_artwork.style.display = "none";
+    }
+    else
+    {
+        e_restartButton.style.display = "none";
+        e_artwork.style.display = "block";
     }
     e_loading.textContent = "";
 }
