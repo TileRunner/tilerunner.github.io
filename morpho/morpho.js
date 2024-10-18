@@ -8,16 +8,22 @@ const tableBody = document.getElementById("table-body");
 const optionsDiv = document.getElementById("options-div");
 const infoDiv = document.getElementById("info-div");
 const restartButton = document.getElementById("restart-puzzle");
-
+const artworkBefore = document.getElementById("artwork-before");
+const artworkAfter = document.getElementById("artwork-after");
 infoDiv.style.display = "none";
 restartButton.addEventListener("click", () => handleRestartClick());
 for (let l = 3; l < 8; l++) {
     document.getElementById(`${l}-letter-puzzle`).addEventListener("click", () => generatePuzzle(l));  
 }
+artworkBefore.style.display = "none";
+artworkBefore.classList.add("artwork");
+artworkBefore.classList.add("caterpillar");
+artworkAfter.classList.add("artwork");
+artworkAfter.classList.add("cocoon");
 
 function generatePuzzle(chosenLength) {
     wordLength = chosenLength;
-    getInfo().then(() => displayInfo());
+    getInfo().then(() => displayInfo()).then(() => displayCaterpillar());
 }
 
 async function getInfo() {
@@ -75,6 +81,7 @@ async function handleLastRowClick(colIndex) {
     displayInfo();
     if (nextRow === wordLength) {
         optionsDiv.style.display = "block";
+        displayButterfly();
     }
 }
 
@@ -88,4 +95,33 @@ function handleRestartClick() {
     }
     optionsDiv.style.display = "none";
     displayInfo();
+    displayCaterpillar();
+}
+
+function displayCocoon() {
+    artworkAfter.innerHTML = ""; // Clear previous
+    let pic = document.createElement("div");
+    pic.classList.add("artwork");
+    pic.classList.add("cocoon");
+    artworkAfter.appendChild(pic);
+    artworkAfter.style.display = "block";
+    artworkBefore.style.display = "none";
+}
+function displayCaterpillar() {
+    artworkAfter.innerHTML = ""; // Clear previous
+    let pic = document.createElement("div");
+    pic.classList.add("artwork");
+    pic.classList.add("caterpillar");
+    artworkAfter.appendChild(pic);
+    artworkAfter.style.display = "block";
+    artworkBefore.style.display = "none";
+}
+function displayButterfly() {
+    artworkBefore.innerHTML = ""; // Clear previous
+    let pic = document.createElement("div");
+    pic.classList.add("artwork");
+    pic.classList.add("butterfly");
+    artworkBefore.appendChild(pic);
+    artworkBefore.style.display = "block";
+    artworkAfter.style.display = "none";
 }

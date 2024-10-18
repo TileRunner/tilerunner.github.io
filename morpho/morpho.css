@@ -54,4 +54,34 @@ td {
     border: 2px inset whitesmoke;
     border-radius: 10%;
 }
-  
+@keyframes fadein {
+    0% {opacity: 0%; border-radius: 50%;}
+    10% {opacity: 10%; border-radius: 45%;}
+    20% {opacity: 20%; border-radius: 40%;}
+    30% {opacity: 30%; border-radius: 35%;}
+    40% {opacity: 40%; border-radius: 30%;}
+    50% {opacity: 50%; border-radius: 25%;}
+    60% {opacity: 60%; border-radius: 20%;}
+    70% {opacity: 70%; border-radius: 15%;}
+    80% {opacity: 80%; border-radius: 10%;}
+    90% {opacity: 90%; border-radius: 5%;}
+    100% {opacity: 100%; border-radius: 0%;}
+}
+.artwork {
+    border: 2px solid black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 370px;
+    width: 370px;
+    animation-name: fadein;
+    animation-duration: 6s;
+}
+.artwork.butterfly {
+    background-image: url('MorphoButterfly.png');
+}
+.artwork.caterpillar {
+    background-image: url('MorphoCaterpillar.png');
+}
+.artwork.cocoon {
+    background-image: url('MorphoCocoon.png');
+}
