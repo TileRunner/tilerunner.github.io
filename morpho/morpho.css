@@ -71,10 +71,12 @@ td {
     border: 2px solid black;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 370px;
-    width: 370px;
+    max-height: 370px;
+    max-width: 370px;
+    height: 100vw;
+    width: 100vw;
     animation-name: fadein;
-    animation-duration: 6s;
+    animation-duration: 2s;
 }
 .artwork.butterfly {
     background-image: url('MorphoButterfly.png');
@@ -84,4 +86,8 @@ td {
 }
 .artwork.cocoon {
     background-image: url('MorphoCocoon.png');
+}
+table {
+    max-width: 370px;
+    width: 100vw;
 }
