@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Mastermind</title>
+    <link rel="stylesheet" href="wordmastermind.css">
+  </head>
+  <body>
+    <div id="options-div" class="options-div">
+        <button id="3-move-puzzle">3</button>
+        <button id="4-move-puzzle">4</button>
+        <button id="5-move-puzzle">5</button>
+        <button id="6-move-puzzle">6</button>
+        <button id="7-move-puzzle">7</button>
+        <button id="8-move-puzzle">8</button>
+        <button id="9-move-puzzle">9</button>
+    </div>
+    <div id="hint-div">
+        Click above to pick a random word of shown length
+    </div>
+    <div id="legend" class="legend">
+      <span class="correct-letter-correct-position">C</span>orrect position, <span class="correct-letter-wrong-position">W</span>rong position
+    </div>
+    <div id="keyboard-div" class="customKeyboard">
+        <div>
+            <span id="click-Q">Q</span>
+            <span id="click-W">W</span>
+            <span id="click-E">E</span>
+            <span id="click-R">R</span>
+            <span id="click-T">T</span>
+            <span id="click-Y">Y</span>
+            <span id="click-U">U</span>
+            <span id="click-I">I</span>
+            <span id="click-O">O</span>
+            <span id="click-P">P</span>
+        </div>
+        <div>
+            <span id="click-A">A</span>
+            <span id="click-S">S</span>
+            <span id="click-D">D</span>
+            <span id="click-F">F</span>
+            <span id="click-G">G</span>
+            <span id="click-H">H</span>
+            <span id="click-J">J</span>
+            <span id="click-K">K</span>
+            <span id="click-L">L</span>
+        </div>
+        <div>
+            <span id="click-Z">Z</span>
+            <span id="click-X">X</span>
+            <span id="click-C">C</span>
+            <span id="click-V">V</span>
+            <span id="click-B">B</span>
+            <span id="click-N">N</span>
+            <span id="click-M">M</span>
+            <span id="click-backspace" class="backspace"></span>
+        </div>
+    </div>
+    <div id="guesses-div">
+      <table class="guess-table">
+        <tbody id="guess-table-body"></tbody>
+      </table>
+    </div>
+    <div>
+      <p>Guess the secret word, based on the Mastermind game with coloured pegs.</p>
+    </div>
+    <div>
+      <span class="acknowledge">NWL2023 lexicon used with permission from <a href='https://www.scrabbleplayers.org/landing/tilerunner'>NASPA</a></span>
+    </div>
+    <script src="callAPI.js"></script>
+    <script src="wordmastermind.js"></script>
+  </body>
+</html>
+
+
+

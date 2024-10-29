@@ -1,0 +1,112 @@
+.options-div {
+    height: 5vh;
+    padding-bottom: 5vh;
+}
+.options-div span {
+    font-size: 2vh;
+    font-style: italic;
+}
+.options-div button {
+    font-size: 4vw;
+    width: 6vw;
+}
+button {
+    text-align: center;
+    vertical-align: middle;
+    background-color: darkblue;
+    border: 2px solid whitesmoke;
+    color: whitesmoke;
+    border-radius: 3vh;
+}
+.acknowledge {
+    font-size: 2vh !important;
+    font-style: italic;
+}
+.customKeyboard {
+    margin-top: 5px;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 0px;
+    background-color: #404040;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    width: 370px;
+}
+.customKeyboard div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.customKeyboard div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.customKeyboard div:nth-child(3) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.customKeyboard span {
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: blue;
+    text-align: center;
+    margin: 0px 2px;
+    padding: 5px 8px;
+    font-size: large;
+}
+.backspace {
+    background-color: blue;
+}
+.backspace::before {
+    content: '\003Cx';
+}
+.guess-table {
+    width: 370px;
+}
+.guess-row {
+    border: 1px solid black;
+}
+.guess-col {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    text-align: center;
+    border: 1px solid white;
+    background-color: blue;
+    color: white;
+}
+.legend {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: larger;
+    font-style: italic;
+    text-align: left;
+    background-color: blue;
+    color: white;
+    width: 370px;
+}
+.correct-letter-correct-position {
+    font-size: 50px;
+    background-color: greenyellow;
+    color: black;
+    font-weight: bold;
+}
+.correct-letter-wrong-position {
+    font-size: 50px;
+    background-color: cornflowerblue;
+    color: black;
+}
+.wrong-letter {
+    font-size: 50px;
+    background-color: darkgrey;
+    color: black;
+}
+.undetermined {
+    background-color: purple;
+    color: whitesmoke;
+}
