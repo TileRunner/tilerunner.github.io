@@ -17,7 +17,7 @@ for (let l = 3; l < 10; l++) {
 for (let l = 0; l < 26; l++) {
     document.getElementById(`click-${letters[l]}`).addEventListener("click", () => handleInputLetter(letters[l]));
 }
-
+document.getElementById("click-backspace").addEventListener("click", () => handleDeleteLetter());
 function generatePuzzle(chosenLength) {
     wordLength = chosenLength;
     e_options.style.display = "none";
@@ -33,6 +33,7 @@ async function getInfo() {
     solving = true;
     solved = false;
     e_legend.style.display = "block";
+    displayGuesses();
 }
 
 function displayInfo() {
@@ -53,7 +54,7 @@ function handleInputLetter(letter) {
         {
             e_legend.style.display = "none";
             e_options.style.display = "block";
-            e_hint.textContent = "Solved! Click a number to replay.";
+            e_hint.textContent = `Solved in ${guesses.length} moves ${guesses.length > 5 ? '.' : '!'} Click a number to replay.`;
             solved = true;
             solving = false;
         }
