@@ -7,9 +7,11 @@ let solving = false;
 let solved = false;
 const e_options = document.getElementById("options-div");
 const e_hint = document.getElementById("hint-div");
+const e_keyboard = document.getElementById("keyboard-div");
 const e_guess_table_body = document.getElementById("guess-table-body");
 const e_legend = document.getElementById("legend");
 e_legend.style.display = "none";
+e_keyboard.style.display = "none";
 
 for (let l = 3; l < 10; l++) {
     document.getElementById(`${l}-move-puzzle`).addEventListener("click", () => generatePuzzle(l));  
@@ -18,6 +20,8 @@ for (let l = 0; l < 26; l++) {
     document.getElementById(`click-${letters[l]}`).addEventListener("click", () => handleInputLetter(letters[l]));
 }
 document.getElementById("click-backspace").addEventListener("click", () => handleDeleteLetter());
+document.getElementById("show-hint").addEventListener("click", () => showHint());
+
 function generatePuzzle(chosenLength) {
     wordLength = chosenLength;
     e_options.style.display = "none";
@@ -33,6 +37,7 @@ async function getInfo() {
     solving = true;
     solved = false;
     e_legend.style.display = "block";
+    e_keyboard.style.display = "block";
     displayGuesses();
 }
 
@@ -55,6 +60,7 @@ function handleInputLetter(letter) {
             e_legend.style.display = "none";
             e_options.style.display = "block";
             e_hint.textContent = `Solved in ${guesses.length} moves ${guesses.length > 5 ? '.' : '!'} Click a number to replay.`;
+            e_keyboard.style.display = "none";
             solved = true;
             solving = false;
         }
@@ -132,4 +138,34 @@ function calcLetterStyle(guessLetters, guessLetterIndex) {
         }
     }
     return "wrong-letter";
+}
+function showHint() {
+    if (guesses.length === 0)
+    {
+        alert("Hint unavailable before first guess");
+        return;
+    }
+    let hintIndex = -1;
+    for(let i = 0; (hintIndex === -1) && (i < targetWord.length); i++)
+    {
+        let gotThisIndex = false;
+        for(let j = 0; (!gotThisIndex) && (j < guesses.length); j++)
+        {
+            let check = guesses[j];
+            if (check[i] === targetWord[i])
+            {
+                gotThisIndex = true;
+            }
+        }
+        if (!gotThisIndex)
+        {
+            hintIndex = i;
+        }
+    }
+    if (hintIndex === -1)
+    {
+        alert("You guesses every letter correctly at least once already, look over your guesses");
+    } else {
+        alert(`Letter ${hintIndex + 1} is ${targetWord[hintIndex]}`);
+    }
 }

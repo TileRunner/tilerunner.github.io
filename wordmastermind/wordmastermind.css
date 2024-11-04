@@ -52,6 +52,10 @@ button {
     margin-left: 20px;
     margin-right: 10px;
 }
+.customKeyboard div:nth-child(4) {
+    display: flex;
+    justify-content: center;
+}
 .customKeyboard span {
     border: 1px solid white;
     border-radius: 5px;
