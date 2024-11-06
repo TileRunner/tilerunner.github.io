@@ -46,14 +46,23 @@ function displayInfo() {
     e_hint.textContent = "Click letters below to form your guess";
 }
 
-function handleInputLetter(letter) {
+async function handleInputLetter(letter) {
     if (!solving)
     {
         return;
     }
+    let saved = currentGuess;
     currentGuess = `${currentGuess}${letter}`;
     if (currentGuess.length === wordLength)
     {
+        let valid = await isWordValid(currentGuess);
+        if (!valid)
+        {
+            alert(`${currentGuess} is not in the NWL2023 lexicon`);
+            currentGuess = saved;
+            displayGuesses();
+            return;
+        }
         guesses.push(currentGuess);
         if (currentGuess === targetWord)
         {
