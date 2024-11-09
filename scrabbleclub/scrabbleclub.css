@@ -1,0 +1,35 @@
+tbody, tfoot {
+    font-size: large;
+}
+
+thead {
+    background-color: burlywood;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+}
+tbody {
+    background-color: black;
+    color: whitesmoke;
+}
+tbody tr td {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+tfoot tr td {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+.left {
+    text-align: left;
+}
+tfoot {
+    background-color: burlywood;
+    color: black;
+}
