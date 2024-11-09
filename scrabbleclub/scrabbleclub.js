@@ -4,10 +4,12 @@ let player_list = [];
 let club_night_list = [];
 let club_game_list = [];
 let player_totals = [];
-let allstat = {games: 0, points: 0, winnerPoints: 0, loserPoints: 0, ties: 0, tiePoints: 0, highgame: 0, avgPoints: 0, avgWinnerPoints: 0, avgLoserPoints: 0, avgTiePoints: 0};
+let all_clubs_stat = {games: 0, points: 0, winnerPoints: 0, loserPoints: 0, ties: 0, tiePoints: 0, highgame: 0, avgPoints: 0, avgWinnerPoints: 0, avgLoserPoints: 0, avgTiePoints: 0};
 const e_clubs = document.createElement("div");
 e_body.appendChild(e_clubs);
-getInfo().then(() => displayClubsInfo());
+const e_players = document.createElement("div");
+e_body.appendChild(e_players);
+getInfo().then(() => displayClubsInfo()).then(() => displayPlayersInfo());
 
 async function getInfo() {
     club_list = await getClubs();
@@ -81,36 +83,36 @@ async function getInfo() {
         club_game_list.forEach(game => {
             if (game.clubId === club.id) {
                 stat.games++;
-                allstat.games++;
+                all_clubs_stat.games++;
                 stat.points += (game.playerScore + game.opponentScore);
-                allstat.points += (game.playerScore + game.opponentScore);
+                all_clubs_stat.points += (game.playerScore + game.opponentScore);
                 if (game.playerScore > stat.highgame) {
                     stat.highgame = game.playerScore;
                 }
-                if (game.playerScore > allstat.highgame) {
-                    allstat.highgame = game.playerScore;
+                if (game.playerScore > all_clubs_stat.highgame) {
+                    all_clubs_stat.highgame = game.playerScore;
                 }
                 if (game.opponentScore > stat.highgame) {
                     stat.highgame = game.opponentScore;
                 }
-                if (game.opponentScore > allstat.highgame) {
-                    allstat.highgame = game.opponentScore;
+                if (game.opponentScore > all_clubs_stat.highgame) {
+                    all_clubs_stat.highgame = game.opponentScore;
                 }
                 if (game.playerScore > game.opponentScore) {
                     stat.winnerPoints += game.playerScore;
                     stat.loserPoints += game.opponentScore;
-                    allstat.winnerPoints += game.playerScore;
-                    allstat.loserPoints += game.opponentScore;
+                    all_clubs_stat.winnerPoints += game.playerScore;
+                    all_clubs_stat.loserPoints += game.opponentScore;
                 } else if (game.playerScore === game.opponentScore) {
                     stat.ties++;
                     stat.tiePoints += game.playerScore;
-                    allstat.ties++;
-                    allstat.tiePoints += game.playerScore;
+                    all_clubs_stat.ties++;
+                    all_clubs_stat.tiePoints += game.playerScore;
                 } else {
                     stat.winnerPoints += game.opponentScore;
                     stat.loserPoints += game.playerScore;
-                    allstat.winnerPoints += game.opponentScore;
-                    allstat.loserPoints += game.playerScore;
+                    all_clubs_stat.winnerPoints += game.opponentScore;
+                    all_clubs_stat.loserPoints += game.playerScore;
                 }
             }
         });
@@ -130,14 +132,14 @@ async function getInfo() {
         }
         club.stat = stat;
     });
-    if (allstat.games > 0) {
-        allstat.avgPoints = allstat.points / allstat.games;
-        if (allstat.games > allstat.ties) {
-            allstat.avgWinnerPoints = allstat.winnerPoints / (allstat.games - allstat.ties);
-            allstat.avgLoserPoints = allstat.loserPoints / (allstat.games - allstat.ties);
+    if (all_clubs_stat.games > 0) {
+        all_clubs_stat.avgPoints = all_clubs_stat.points / all_clubs_stat.games;
+        if (all_clubs_stat.games > all_clubs_stat.ties) {
+            all_clubs_stat.avgWinnerPoints = all_clubs_stat.winnerPoints / (all_clubs_stat.games - all_clubs_stat.ties);
+            all_clubs_stat.avgLoserPoints = all_clubs_stat.loserPoints / (all_clubs_stat.games - all_clubs_stat.ties);
         }
-        if (allstat.ties > 0) {
-            allstat.avgTiePoints = allstat.tiePoints / allstat.ties;
+        if (all_clubs_stat.ties > 0) {
+            all_clubs_stat.avgTiePoints = all_clubs_stat.tiePoints / all_clubs_stat.ties;
         }
     }
     calcPlayerTotals();
@@ -321,12 +323,11 @@ function displayClubsInfo() {
     e_club_headrow.appendChild(e_club_headcol_highgame);
     e_club_headcol_highgame.textContent = "High Game";
 
-    let e_allclubs_tbody = document.createElement("tbody");
-    e_club_table.appendChild(e_allclubs_tbody);
+    let e_clubs_tbody = document.createElement("tbody");
+    e_club_table.appendChild(e_clubs_tbody);
     club_list.forEach(club => {
-        // club has id, name, location, openingBalance, openingBalanceDate
         let e_club_row = document.createElement("tr");
-        e_allclubs_tbody.appendChild(e_club_row);
+        e_clubs_tbody.appendChild(e_club_row);
         let e_club_col_name = document.createElement("td");
         e_club_row.appendChild(e_club_col_name);
         e_club_col_name.textContent = club.name;
@@ -341,21 +342,76 @@ function displayClubsInfo() {
     });
 
     // Stats for all clubs
-    let e_allclubs_tfoot = document.createElement("tfoot");
-    e_club_table.appendChild(e_allclubs_tfoot);
-    let e_allclubs_row = document.createElement("tr");
-    e_allclubs_tfoot.appendChild(e_allclubs_row);
-    let e_allclubs_col_name = document.createElement("td");
-    e_allclubs_row.appendChild(e_allclubs_col_name);
-    e_allclubs_col_name.textContent = "All clubs";
-    let e_allclubs_col_games = document.createElement("td");
-    e_allclubs_row.appendChild(e_allclubs_col_games);
-    e_allclubs_col_games.textContent = formatNumber(allstat.games);
-    e_allclubs_col_games.classList.add("right");
-    let e_allclubs_col_highgame = document.createElement("td");
-    e_allclubs_row.appendChild(e_allclubs_col_highgame);
-    e_allclubs_col_highgame.textContent = formatNumber(allstat.highgame);
-    e_allclubs_col_highgame.classList.add("center");
+    let e_clubs_tfoot = document.createElement("tfoot");
+    e_club_table.appendChild(e_clubs_tfoot);
+    let e_clubs_footrow = document.createElement("tr");
+    e_clubs_tfoot.appendChild(e_clubs_footrow);
+    let e_clubs_footcol_name = document.createElement("td");
+    e_clubs_footrow.appendChild(e_clubs_footcol_name);
+    e_clubs_footcol_name.textContent = "All clubs";
+    let e_clubs_footcol_games = document.createElement("td");
+    e_clubs_footrow.appendChild(e_clubs_footcol_games);
+    e_clubs_footcol_games.textContent = formatNumber(all_clubs_stat.games);
+    e_clubs_footcol_games.classList.add("right");
+    let e_clubs_footcol_highgame = document.createElement("td");
+    e_clubs_footrow.appendChild(e_clubs_footcol_highgame);
+    e_clubs_footcol_highgame.textContent = formatNumber(all_clubs_stat.highgame);
+    e_clubs_footcol_highgame.classList.add("center");
+}
+
+function displayPlayersInfo() {
+    e_players.textContent = ""; // Clear previous
+    let e_player_table = document.createElement("table");
+    e_players.appendChild(e_player_table);
+
+    let e_player_thead = document.createElement("thead");
+    e_player_table.appendChild(e_player_thead);
+
+    let e_player_headrow = document.createElement("tr");
+    e_player_thead.appendChild(e_player_headrow);
+
+    let e_player_headcol_name = document.createElement("td");
+    e_player_headrow.appendChild(e_player_headcol_name);
+    e_player_headcol_name.textContent = "Player Name";
+
+    let e_player_headcol_wins = document.createElement("td");
+    e_player_headrow.appendChild(e_player_headcol_wins);
+    e_player_headcol_wins.textContent = "Wins";
+
+    let e_player_headcol_losses = document.createElement("td");
+    e_player_headrow.appendChild(e_player_headcol_losses);
+    e_player_headcol_losses.textContent = "Losses";
+
+    let e_player_headcol_highgame = document.createElement("td");
+    e_player_headrow.appendChild(e_player_headcol_highgame);
+    e_player_headcol_highgame.textContent = "High Game";
+
+    let e_players_tbody = document.createElement("tbody");
+    e_player_table.appendChild(e_players_tbody);
+    player_totals.forEach(player_total => {
+        let e_player_row = document.createElement("tr");
+        e_players_tbody.appendChild(e_player_row);
+
+        let e_player_col_name = document.createElement("td");
+        e_player_row.appendChild(e_player_col_name);
+        e_player_col_name.textContent = player_total.name;
+
+
+        let e_player_col_wins = document.createElement("td");
+        e_player_row.appendChild(e_player_col_wins);
+        e_player_col_wins.textContent = formatNumber(player_total.wins);
+        e_player_col_wins.classList.add("right");
+
+        let e_player_col_losses = document.createElement("td");
+        e_player_row.appendChild(e_player_col_losses);
+        e_player_col_losses.textContent = formatNumber(player_total.losses);
+        e_player_col_losses.classList.add("right");
+
+        let e_player_col_highgame = document.createElement("td");
+        e_player_row.appendChild(e_player_col_highgame);
+        e_player_col_highgame.textContent = formatNumber(player_total.highgame);
+        e_player_col_highgame.classList.add("center");
+    });
 }
 
 function formatNumber(number) {
