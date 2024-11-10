@@ -1,3 +1,4 @@
+const is_mobile = isMobile();
 const e_body = document.getElementById("body");
 let club_list = [];
 let player_list = [];
@@ -5,13 +6,23 @@ let club_night_list = [];
 let club_game_list = [];
 let player_totals = [];
 let all_clubs_stat = {games: 0, points: 0, winnerPoints: 0, loserPoints: 0, ties: 0, tiePoints: 0, highgame: 0, avgPoints: 0, avgWinnerPoints: 0, avgLoserPoints: 0, avgTiePoints: 0};
+
 const e_clubs = document.createElement("div");
 e_body.appendChild(e_clubs);
+
 const e_players = document.createElement("div");
 e_body.appendChild(e_players);
+
+const e_player = document.createElement("div");
+e_body.appendChild(e_player);
+
 getInfo().then(() => displayClubsInfo()).then(() => displayPlayersInfo());
 
-async function getInfo() {
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+  async function getInfo() {
     club_list = await getClubs();
     player_list = await getPlayers();
     club_night_list = await getClubNights();
@@ -287,6 +298,10 @@ function calcPlayerTotals() {
             opponent.avgFor = Math.round(opponent.pointsFor / (opponent.wins + opponent.losses));
             opponent.avgAgainst = Math.round(opponent.pointsAgainst / (opponent.wins + opponent.losses));
         });
+        h2h.sort(function(a,b) {
+            if (a.name.toUpperCase() > b.name.toUpperCase()) {return 1;} // by name
+            return -1;
+        });
         total.h2h = h2h;
     })
     // Game counts
@@ -306,6 +321,11 @@ function calcPlayerTotals() {
 
 function displayClubsInfo() {
     e_clubs.textContent = ""; // Clear previous
+
+    let e_clubs_title = document.createElement("h1");
+    e_clubs.appendChild(e_clubs_title);
+    e_clubs_title.textContent = "Clubs";
+
     let e_club_table = document.createElement("table");
     e_clubs.appendChild(e_club_table);
 
@@ -361,6 +381,11 @@ function displayClubsInfo() {
 
 function displayPlayersInfo() {
     e_players.textContent = ""; // Clear previous
+
+    let e_players_title = document.createElement("h1");
+    e_players.appendChild(e_players_title);
+    e_players_title.textContent = "Players (click player for info)";
+
     let e_player_table = document.createElement("table");
     e_players.appendChild(e_player_table);
 
@@ -389,28 +414,92 @@ function displayPlayersInfo() {
     let e_players_tbody = document.createElement("tbody");
     e_player_table.appendChild(e_players_tbody);
     player_totals.forEach(player_total => {
-        let e_player_row = document.createElement("tr");
-        e_players_tbody.appendChild(e_player_row);
+        if (!is_mobile || (player_total.wins + player_total.losses >= 50)) {
+            let e_player_row = document.createElement("tr");
+            e_players_tbody.appendChild(e_player_row);
+            e_player_row.addEventListener("click", () => selectPlayer(player_total));
+    
+            let e_player_col_name = document.createElement("td");
+            e_player_row.appendChild(e_player_col_name);
+            e_player_col_name.textContent = player_total.name;
+    
+    
+            let e_player_col_wins = document.createElement("td");
+            e_player_row.appendChild(e_player_col_wins);
+            e_player_col_wins.textContent = formatNumber(player_total.wins);
+            e_player_col_wins.classList.add("right");
+    
+            let e_player_col_losses = document.createElement("td");
+            e_player_row.appendChild(e_player_col_losses);
+            e_player_col_losses.textContent = formatNumber(player_total.losses);
+            e_player_col_losses.classList.add("right");
+    
+            let e_player_col_highgame = document.createElement("td");
+            e_player_row.appendChild(e_player_col_highgame);
+            e_player_col_highgame.textContent = formatNumber(player_total.highgame);
+            e_player_col_highgame.classList.add("center");
+        }
+    });
+}
 
-        let e_player_col_name = document.createElement("td");
-        e_player_row.appendChild(e_player_col_name);
-        e_player_col_name.textContent = player_total.name;
+function selectPlayer(player_total) {
+    e_player.textContent = ""; // Clear previous
+
+    let e_player_title = document.createElement("h1");
+    e_player.appendChild(e_player_title);
+    e_player_title.textContent = `${player_total.name} Head To Head`;
+
+    let e_h2h_table = document.createElement("table");
+    e_player.appendChild(e_h2h_table);
+
+    let e_h2h_thead = document.createElement("thead");
+    e_h2h_table.appendChild(e_h2h_thead);
+
+    let e_h2h_headrow = document.createElement("tr");
+    e_h2h_thead.appendChild(e_h2h_headrow);
+
+    let e_h2h_headcol_name = document.createElement("td");
+    e_h2h_headrow.appendChild(e_h2h_headcol_name);
+    e_h2h_headcol_name.textContent = "Opponent Name";
+
+    let e_h2h_headcol_wins = document.createElement("td");
+    e_h2h_headrow.appendChild(e_h2h_headcol_wins);
+    e_h2h_headcol_wins.textContent = "Wins";
+
+    let e_h2h_headcol_losses = document.createElement("td");
+    e_h2h_headrow.appendChild(e_h2h_headcol_losses);
+    e_h2h_headcol_losses.textContent = "Losses";
+
+    let e_h2h_headcol_spread = document.createElement("td");
+    e_h2h_headrow.appendChild(e_h2h_headcol_spread);
+    e_h2h_headcol_spread.textContent = "Spread";
+
+    let e_h2h_tbody = document.createElement("tbody");
+    e_h2h_table.appendChild(e_h2h_tbody);
+
+    player_total.h2h.forEach(h2h => {
+        let e_h2h_row = document.createElement("tr");
+        e_h2h_tbody.appendChild(e_h2h_row);
+
+        let e_h2h_col_name = document.createElement("td");
+        e_h2h_row.appendChild(e_h2h_col_name);
+        e_h2h_col_name.textContent = h2h.name;
 
 
-        let e_player_col_wins = document.createElement("td");
-        e_player_row.appendChild(e_player_col_wins);
-        e_player_col_wins.textContent = formatNumber(player_total.wins);
-        e_player_col_wins.classList.add("right");
+        let e_h2h_col_wins = document.createElement("td");
+        e_h2h_row.appendChild(e_h2h_col_wins);
+        e_h2h_col_wins.textContent = formatNumber(h2h.wins);
+        e_h2h_col_wins.classList.add("right");
 
-        let e_player_col_losses = document.createElement("td");
-        e_player_row.appendChild(e_player_col_losses);
-        e_player_col_losses.textContent = formatNumber(player_total.losses);
-        e_player_col_losses.classList.add("right");
+        let e_h2h_col_losses = document.createElement("td");
+        e_h2h_row.appendChild(e_h2h_col_losses);
+        e_h2h_col_losses.textContent = formatNumber(h2h.losses);
+        e_h2h_col_losses.classList.add("right");
 
-        let e_player_col_highgame = document.createElement("td");
-        e_player_row.appendChild(e_player_col_highgame);
-        e_player_col_highgame.textContent = formatNumber(player_total.highgame);
-        e_player_col_highgame.classList.add("center");
+        let e_h2h_col_spread = document.createElement("td");
+        e_h2h_row.appendChild(e_h2h_col_spread);
+        e_h2h_col_spread.textContent = formatNumber(h2h.pointsFor - h2h.pointsAgainst);
+        e_h2h_col_spread.classList.add("center");
     });
 }
 
