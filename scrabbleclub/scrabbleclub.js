@@ -414,7 +414,7 @@ function displayPlayersInfo() {
     let e_players_tbody = document.createElement("tbody");
     e_player_table.appendChild(e_players_tbody);
     player_totals.forEach(player_total => {
-        if (!is_mobile || (player_total.wins + player_total.losses >= 50)) {
+        if (!is_mobile || (player_total.wins + player_total.losses >= 39)) {
             let e_player_row = document.createElement("tr");
             e_players_tbody.appendChild(e_player_row);
             e_player_row.addEventListener("click", () => selectPlayer(player_total));
@@ -501,6 +501,16 @@ function selectPlayer(player_total) {
         e_h2h_col_spread.textContent = formatNumber(h2h.pointsFor - h2h.pointsAgainst);
         e_h2h_col_spread.classList.add("center");
     });
+    e_players.style.display = "none"; // So they can see head to head without scrolling down
+    let e_done = document.createElement("button");
+    e_player.appendChild(e_done);
+    e_done.textContent = "CLOSE";
+    e_done.addEventListener("click", () => closeHeadToHead());
+}
+
+function closeHeadToHead() {
+    e_players.style.display = "block";
+    e_player.textContent = "";
 }
 
 function formatNumber(number) {
