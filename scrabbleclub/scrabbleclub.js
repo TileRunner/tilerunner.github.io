@@ -447,7 +447,12 @@ function selectPlayer(player_total) {
 
     let e_player_title = document.createElement("h1");
     e_player.appendChild(e_player_title);
-    e_player_title.textContent = `${player_total.name} Head To Head`;
+    e_player_title.textContent = `${player_total.name}`;
+
+    let e_done = document.createElement("button");
+    e_player_title.appendChild(e_done);
+    e_done.textContent = "CLOSE";
+    e_done.addEventListener("click", () => closeHeadToHead());
 
     let e_h2h_table = document.createElement("table");
     e_player.appendChild(e_h2h_table);
@@ -502,10 +507,6 @@ function selectPlayer(player_total) {
         e_h2h_col_spread.classList.add("center");
     });
     e_players.style.display = "none"; // So they can see head to head without scrolling down
-    let e_done = document.createElement("button");
-    e_player.appendChild(e_done);
-    e_done.textContent = "CLOSE";
-    e_done.addEventListener("click", () => closeHeadToHead());
 }
 
 function closeHeadToHead() {

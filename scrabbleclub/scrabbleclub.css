@@ -33,3 +33,10 @@ tfoot {
     background-color: burlywood;
     color: black;
 }
+button {
+    vertical-align: top;
+    margin-top: 3px;
+    margin-left: 15px;
+    border: 2px solid blue;
+    font-size: large;
+}
