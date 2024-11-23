@@ -1,0 +1,25 @@
+a, tbody, tfoot {
+    font-size: large;
+}
+.link {
+    margin-left: 1vw;
+    margin-top: 1vh;
+}
+thead {
+    background-color: burlywood;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+}
+tbody {
+    background-color: black;
+    color: whitesmoke;
+}
+tbody tr td {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+tfoot tr td {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
