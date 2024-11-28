@@ -10,6 +10,9 @@ let all_clubs_stat = {games: 0, points: 0, winnerPoints: 0, loserPoints: 0, ties
 const e_clubs = document.createElement("div");
 e_body.appendChild(e_clubs);
 
+const e_club = document.createElement("div");
+e_body.appendChild(e_club);
+
 const e_players = document.createElement("div");
 e_body.appendChild(e_players);
 
@@ -22,7 +25,7 @@ function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-  async function getInfo() {
+async function getInfo() {
     club_list = await getClubs();
     player_list = await getPlayers();
     club_night_list = await getClubNights();
@@ -324,7 +327,7 @@ function displayClubsInfo() {
 
     let e_clubs_title = document.createElement("h1");
     e_clubs.appendChild(e_clubs_title);
-    e_clubs_title.textContent = "Clubs";
+    e_clubs_title.textContent = "Clubs (click club for info)";
 
     let e_club_table = document.createElement("table");
     e_clubs.appendChild(e_club_table);
@@ -348,13 +351,17 @@ function displayClubsInfo() {
     club_list.forEach(club => {
         let e_club_row = document.createElement("tr");
         e_clubs_tbody.appendChild(e_club_row);
+        e_club_row.addEventListener("click", () => selectClub(club));
+
         let e_club_col_name = document.createElement("td");
         e_club_row.appendChild(e_club_col_name);
         e_club_col_name.textContent = club.name;
+
         let e_club_col_games = document.createElement("td");
         e_club_row.appendChild(e_club_col_games);
         e_club_col_games.textContent = formatNumber(club.stat.games);
         e_club_col_games.classList.add("right");
+
         let e_club_col_highgame = document.createElement("td");
         e_club_row.appendChild(e_club_col_highgame);
         e_club_col_highgame.textContent = formatNumber(club.stat.highgame);
@@ -377,6 +384,112 @@ function displayClubsInfo() {
     e_clubs_footrow.appendChild(e_clubs_footcol_highgame);
     e_clubs_footcol_highgame.textContent = formatNumber(all_clubs_stat.highgame);
     e_clubs_footcol_highgame.classList.add("center");
+}
+
+function selectClub(club) {
+    // club has "id, name, location, stat: games, points, winnerPoints, loserPoints, ties, tiePoints, highgame, avgPoints, avgWinnerPoints, avgLoserPoints, avgTiePoints"
+    // club night has "id, clubId, date, numGames, highgame, numPlayers, winner: wins, spreead, name"
+    // club game has "id, clubNightId, round, playerName, opponentName, playerScore, opponentScore"
+    let sel_club_nights = [];
+    for(let n = 0; n < club_night_list.length; n++) {
+        if (club_night_list[n].clubId === club.id) {
+            sel_club_nights.push(club_night_list[n]);
+        }
+    }
+    sel_club_nights.sort((a,b) => a.date < b.date ? 1 : -1);
+    let last_club_night = sel_club_nights[0];
+    let sel_games = [];
+    for(let g = 0; g < club_game_list.length; g++) {
+        if (club_game_list[g].clubNightId === last_club_night.id) {
+            sel_games.push(club_game_list[g]);
+        }
+    }
+    sel_games.sort((a,b) => a.round > b.round ? 1 : a.round < b.round ? -1 : a.playerScore < b.playerScore ? 1 : -1);
+    // Now show the latest game night results
+    e_club.textContent = ""; // Clear previous
+
+
+
+    let e_lcn_title = document.createElement("h1"); // lcn = latest club night
+    e_club.appendChild(e_lcn_title);
+    e_lcn_title.textContent = `${club.name} ${last_club_night.date}`;
+
+    let e_done = document.createElement("button");
+    e_lcn_title.appendChild(e_done);
+    e_done.textContent = "CLOSE";
+    e_done.addEventListener("click", () => closeClub());
+
+    let e_lcn_table = document.createElement("table");
+    e_club.appendChild(e_lcn_table);
+
+    let e_lcn_thead = document.createElement("thead");
+    e_lcn_table.appendChild(e_lcn_thead);
+
+    let e_lcn_headrow = document.createElement("tr");
+    e_lcn_thead.appendChild(e_lcn_headrow);
+
+    let e_lcn_headcol_round = document.createElement("td");
+    e_lcn_headrow.appendChild(e_lcn_headcol_round);
+    e_lcn_headcol_round.textContent = "Round";
+
+    let e_h2h_headcol_p1name = document.createElement("td");
+    e_lcn_headrow.appendChild(e_h2h_headcol_p1name);
+    e_h2h_headcol_p1name.textContent = "Player 1";
+
+    let e_h2h_headcol_p1score = document.createElement("td");
+    e_lcn_headrow.appendChild(e_h2h_headcol_p1score);
+    e_h2h_headcol_p1score.textContent = "Score";
+
+    let e_h2h_headcol_p2name = document.createElement("td");
+    e_lcn_headrow.appendChild(e_h2h_headcol_p2name);
+    e_h2h_headcol_p2name.textContent = "Player 2";
+
+    let e_h2h_headcol_p2score = document.createElement("td");
+    e_lcn_headrow.appendChild(e_h2h_headcol_p2score);
+    e_h2h_headcol_p2score.textContent = "Score";
+
+    let e_h2h_tbody = document.createElement("tbody");
+    e_lcn_table.appendChild(e_h2h_tbody);
+
+    sel_games.forEach(game => {
+        let e_game_row = document.createElement("tr");
+        e_h2h_tbody.appendChild(e_game_row);
+
+        let e_game_col_round = document.createElement("td");
+        e_game_row.appendChild(e_game_col_round);
+        e_game_col_round.textContent = game.round;
+        e_game_col_round.classList.add("right");
+
+        let e_game_col_p1name = document.createElement("td");
+        e_game_row.appendChild(e_game_col_p1name);
+        e_game_col_p1name.textContent = game.playerName;
+        e_game_col_p1name.classList.add("left");
+
+        let e_game_col_p1score = document.createElement("td");
+        e_game_row.appendChild(e_game_col_p1score);
+        e_game_col_p1score.textContent = game.playerScore;
+        e_game_col_p1score.classList.add("right");
+
+        let e_game_col_p2name = document.createElement("td");
+        e_game_row.appendChild(e_game_col_p2name);
+        e_game_col_p2name.textContent = game.opponentName;
+        e_game_col_p2name.classList.add("left");
+
+        let e_game_col_p2score = document.createElement("td");
+        e_game_row.appendChild(e_game_col_p2score);
+        e_game_col_p2score.textContent = game.opponentScore;
+        e_game_col_p2score.classList.add("right");
+    });
+    e_players.style.display = "none"; // Remove player list
+}
+
+function closeClub() {
+    e_players.style.display = "block";
+    e_club.textContent = "";
+
+
+
+
 }
 
 function displayPlayersInfo() {
