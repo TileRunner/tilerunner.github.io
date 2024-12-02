@@ -595,7 +595,15 @@ function selectPlayer(player_total) {
     let e_h2h_tbody = document.createElement("tbody");
     e_h2h_table.appendChild(e_h2h_tbody);
 
+    let totWins = 0;
+    let totLosses = 0;
+    let totSpread = 0;
+
     player_total.h2h.forEach(h2h => {
+        totWins += h2h.wins;
+        totLosses += h2h.losses;
+        totSpread += h2h.pointsFor - h2h.pointsAgainst;
+
         let e_h2h_row = document.createElement("tr");
         e_h2h_tbody.appendChild(e_h2h_row);
 
@@ -619,6 +627,33 @@ function selectPlayer(player_total) {
         e_h2h_col_spread.textContent = formatNumber(h2h.pointsFor - h2h.pointsAgainst);
         e_h2h_col_spread.classList.add("center");
     });
+
+    // Totals
+    let e_h2h_tfoot = document.createElement("tfoot");
+    e_h2h_table.appendChild(e_h2h_tfoot);
+
+    let e_h2h_footrow = document.createElement("tr");
+    e_h2h_tfoot.appendChild(e_h2h_footrow);
+
+    let e_h2h_footcol_label = document.createElement("td");
+    e_h2h_footrow.appendChild(e_h2h_footcol_label);
+    e_h2h_footcol_label.textContent = "All opponents";
+
+    let e_h2h_footcol_wins = document.createElement("td");
+    e_h2h_footrow.appendChild(e_h2h_footcol_wins);
+    e_h2h_footcol_wins.textContent = formatNumber(totWins);
+    e_h2h_footcol_wins.classList.add("right");
+
+    let e_h2h_footcol_losses = document.createElement("td");
+    e_h2h_footrow.appendChild(e_h2h_footcol_losses);
+    e_h2h_footcol_losses.textContent = formatNumber(totLosses);
+    e_h2h_footcol_losses.classList.add("right");
+
+    let e_h2h_footcol_spread = document.createElement("td");
+    e_h2h_footrow.appendChild(e_h2h_footcol_spread);
+    e_h2h_footcol_spread.textContent = formatNumber(totSpread);
+    e_h2h_footcol_spread.classList.add("right");
+
     e_players.style.display = "none"; // So they can see head to head without scrolling down
 }
 
