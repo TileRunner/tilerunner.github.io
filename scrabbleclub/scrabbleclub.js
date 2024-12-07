@@ -432,28 +432,28 @@ function selectClub(club) {
     e_lcn_headrow.appendChild(e_lcn_headcol_round);
     e_lcn_headcol_round.textContent = "Round";
 
-    let e_h2h_headcol_p1name = document.createElement("td");
-    e_lcn_headrow.appendChild(e_h2h_headcol_p1name);
-    e_h2h_headcol_p1name.textContent = "Player 1";
+    let e_lcn_headcol_p1name = document.createElement("td");
+    e_lcn_headrow.appendChild(e_lcn_headcol_p1name);
+    e_lcn_headcol_p1name.textContent = "Player 1";
 
-    let e_h2h_headcol_p1score = document.createElement("td");
-    e_lcn_headrow.appendChild(e_h2h_headcol_p1score);
-    e_h2h_headcol_p1score.textContent = "Score";
+    let e_lcn_headcol_p1score = document.createElement("td");
+    e_lcn_headrow.appendChild(e_lcn_headcol_p1score);
+    e_lcn_headcol_p1score.textContent = "Score";
 
-    let e_h2h_headcol_p2name = document.createElement("td");
-    e_lcn_headrow.appendChild(e_h2h_headcol_p2name);
-    e_h2h_headcol_p2name.textContent = "Player 2";
+    let e_lcn_headcol_p2name = document.createElement("td");
+    e_lcn_headrow.appendChild(e_lcn_headcol_p2name);
+    e_lcn_headcol_p2name.textContent = "Player 2";
 
-    let e_h2h_headcol_p2score = document.createElement("td");
-    e_lcn_headrow.appendChild(e_h2h_headcol_p2score);
-    e_h2h_headcol_p2score.textContent = "Score";
+    let e_lcn_headcol_p2score = document.createElement("td");
+    e_lcn_headrow.appendChild(e_lcn_headcol_p2score);
+    e_lcn_headcol_p2score.textContent = "Score";
 
-    let e_h2h_tbody = document.createElement("tbody");
-    e_lcn_table.appendChild(e_h2h_tbody);
+    let e_lcn_tbody = document.createElement("tbody");
+    e_lcn_table.appendChild(e_lcn_tbody);
 
     sel_games.forEach(game => {
         let e_game_row = document.createElement("tr");
-        e_h2h_tbody.appendChild(e_game_row);
+        e_lcn_tbody.appendChild(e_game_row);
 
         let e_game_col_round = document.createElement("td");
         e_game_row.appendChild(e_game_col_round);
@@ -480,6 +480,43 @@ function selectClub(club) {
         e_game_col_p2score.textContent = game.opponentScore;
         e_game_col_p2score.classList.add("right");
     });
+    // Show winner in footer row
+    let participants = [];
+    sel_games.forEach(game => {
+        if (!participants.includes(game.playerName)) {
+            participants.push({name: game.playerName, wins: 0, losses: 0, spread: 0});
+        }
+        if (!participants.includes(game.opponentName)) {
+            participants.push({name: game.opponentName, wins: 0, losses: 0, spread: 0});
+        }
+        const p1 = participants.find(p => p.name === game.playerName);
+        const p2 = participants.find(p => p.name === game.opponentName);
+        p1.spread += game.playerScore - game.opponentScore;
+        p2.spread += game.opponentScore - game.playerScore;
+        if (game.playerScore > game.opponentScore) {
+            p1.wins++;
+            p2.losses++;
+        } else if (game.playerScore < game.opponentScore) {
+            p2.wins++;
+            p1.losses++;
+        } else {
+            p1.wins += 0.5;
+            p2.wins += 0.5;
+            p1.losses += 0.5;
+            p2.losses += 0.5;
+        }
+    });
+    participants.sort((a,b) => a.wins > b.wins ? -1 : a.wins < b.wins ? 1 : a.spread > b.spread ? -1 : 1);
+    let winner = participants[0];
+    let e_lcn_tfoot = document.createElement("tfoot");
+    e_lcn_table.appendChild(e_lcn_tfoot);
+    let e_winner_row = document.createElement("tr");
+    e_lcn_tfoot.appendChild(e_winner_row);
+    let e_winner_col = document.createElement("td");
+    e_winner_row.appendChild(e_winner_col);
+    e_winner_col.setAttribute("colSpan", "5");
+    e_winner_col.textContent = `Winner: ${winner.name} ${winner.wins}-${winner.losses} ${winner.spread > -1 ? '+' : ''}${winner.spread}`;
+
     e_players.style.display = "none"; // Remove player list
 }
 
