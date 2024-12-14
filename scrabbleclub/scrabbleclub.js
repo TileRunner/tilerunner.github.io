@@ -6,6 +6,14 @@ let club_night_list = [];
 let club_game_list = [];
 let player_totals = [];
 let all_clubs_stat = {games: 0, points: 0, winnerPoints: 0, loserPoints: 0, ties: 0, tiePoints: 0, highgame: 0, avgPoints: 0, avgWinnerPoints: 0, avgLoserPoints: 0, avgTiePoints: 0};
+/*
+    Variables below are for showing club nights for a selected club
+ */
+let sel_club = {};
+let sel_club_nights = [];
+let sel_club_night_index = -1;
+let sel_club_night = {};
+let sel_games = [];
 
 const e_clubs = document.createElement("div");
 e_body.appendChild(e_clubs);
@@ -387,73 +395,109 @@ function displayClubsInfo() {
 }
 
 function selectClub(club) {
-    // club has "id, name, location, stat: games, points, winnerPoints, loserPoints, ties, tiePoints, highgame, avgPoints, avgWinnerPoints, avgLoserPoints, avgTiePoints"
-    // club night has "id, clubId, date, numGames, highgame, numPlayers, winner: wins, spreead, name"
-    // club game has "id, clubNightId, round, playerName, opponentName, playerScore, opponentScore"
-    let sel_club_nights = [];
+/*
+    club has "id, name, location, stat: games, points, winnerPoints, loserPoints, ties, tiePoints, highgame, avgPoints, avgWinnerPoints, avgLoserPoints, avgTiePoints"
+    club night has "id, clubId, date, numGames, highgame, numPlayers, winner: wins, spreead, name"
+    club game has "id, clubNightId, round, playerName, opponentName, playerScore, opponentScore"
+*/
+    sel_club = club;
+    setSelClubNights(); // Sets sel_club_nights
+    selectClubNight(0); // Select and display most recent club night
+}
+
+function setSelClubNights() {
+    sel_club_nights = [];
     for(let n = 0; n < club_night_list.length; n++) {
-        if (club_night_list[n].clubId === club.id) {
+        if (club_night_list[n].clubId === sel_club.id) {
             sel_club_nights.push(club_night_list[n]);
         }
     }
     sel_club_nights.sort((a,b) => a.date < b.date ? 1 : -1);
-    let last_club_night = sel_club_nights[0];
-    let sel_games = [];
+}
+
+function selectClubNight(club_night_index) {
+    sel_club_night_index = club_night_index;
+    sel_club_night = sel_club_nights[sel_club_night_index];
+    setSelGames(); // Sets sel_games
+    displayClubNight(); // Displays selected club night
+}
+function setSelGames() {
+    sel_games = [];
     for(let g = 0; g < club_game_list.length; g++) {
-        if (club_game_list[g].clubNightId === last_club_night.id) {
+        if (club_game_list[g].clubNightId === sel_club_night.id) {
             sel_games.push(club_game_list[g]);
         }
     }
     sel_games.sort((a,b) => a.round > b.round ? 1 : a.round < b.round ? -1 : a.playerScore < b.playerScore ? 1 : -1);
-    // Now show the latest game night results
+}
+
+function displayClubNight() {
     e_club.textContent = ""; // Clear previous
 
+    let e_scn_title = document.createElement("h1"); // scn = selected club night
+    e_club.appendChild(e_scn_title);
+    e_scn_title.textContent = sel_club.name;
 
+    let e_scn_subtitle = document.createElement("h2");
+    e_club.appendChild(e_scn_subtitle);
+    e_scn_subtitle.textContent = `Club Night: ${sel_club_night.date}`;
 
-    let e_lcn_title = document.createElement("h1"); // lcn = latest club night
-    e_club.appendChild(e_lcn_title);
-    e_lcn_title.textContent = `${club.name} ${last_club_night.date}`;
+    if (sel_club_night_index + 1 < sel_club_nights.length) {
+        // Made a PREV button to show previous club night
+        let e_prev = document.createElement("button");
+        e_scn_subtitle.appendChild(e_prev);
+        e_prev.textContent = "PREV";
+        e_prev.addEventListener("click", () => selectClubNight(sel_club_night_index + 1));
+    }
 
+    if (sel_club_night_index - 1 >= 0) {
+        // Made a NEXT button to show next club night
+        let e_next = document.createElement("button");
+        e_scn_subtitle.appendChild(e_next);
+        e_next.textContent = "NEXT";
+        e_next.addEventListener("click", () => selectClubNight(sel_club_night_index - 1));
+    }
+    
     let e_done = document.createElement("button");
-    e_lcn_title.appendChild(e_done);
+    e_scn_subtitle.appendChild(e_done);
     e_done.textContent = "CLOSE";
     e_done.addEventListener("click", () => closeClub());
 
-    let e_lcn_table = document.createElement("table");
-    e_club.appendChild(e_lcn_table);
+    let e_scn_table = document.createElement("table");
+    e_club.appendChild(e_scn_table);
 
-    let e_lcn_thead = document.createElement("thead");
-    e_lcn_table.appendChild(e_lcn_thead);
+    let e_scn_thead = document.createElement("thead");
+    e_scn_table.appendChild(e_scn_thead);
 
-    let e_lcn_headrow = document.createElement("tr");
-    e_lcn_thead.appendChild(e_lcn_headrow);
+    let e_scn_headrow = document.createElement("tr");
+    e_scn_thead.appendChild(e_scn_headrow);
 
-    let e_lcn_headcol_round = document.createElement("td");
-    e_lcn_headrow.appendChild(e_lcn_headcol_round);
-    e_lcn_headcol_round.textContent = "Round";
+    let e_scn_headcol_round = document.createElement("td");
+    e_scn_headrow.appendChild(e_scn_headcol_round);
+    e_scn_headcol_round.textContent = "Round";
 
-    let e_lcn_headcol_p1name = document.createElement("td");
-    e_lcn_headrow.appendChild(e_lcn_headcol_p1name);
-    e_lcn_headcol_p1name.textContent = "Player 1";
+    let e_scn_headcol_p1name = document.createElement("td");
+    e_scn_headrow.appendChild(e_scn_headcol_p1name);
+    e_scn_headcol_p1name.textContent = "Player 1";
 
-    let e_lcn_headcol_p1score = document.createElement("td");
-    e_lcn_headrow.appendChild(e_lcn_headcol_p1score);
-    e_lcn_headcol_p1score.textContent = "Score";
+    let e_scn_headcol_p1score = document.createElement("td");
+    e_scn_headrow.appendChild(e_scn_headcol_p1score);
+    e_scn_headcol_p1score.textContent = "Score";
 
-    let e_lcn_headcol_p2name = document.createElement("td");
-    e_lcn_headrow.appendChild(e_lcn_headcol_p2name);
-    e_lcn_headcol_p2name.textContent = "Player 2";
+    let e_scn_headcol_p2name = document.createElement("td");
+    e_scn_headrow.appendChild(e_scn_headcol_p2name);
+    e_scn_headcol_p2name.textContent = "Player 2";
 
-    let e_lcn_headcol_p2score = document.createElement("td");
-    e_lcn_headrow.appendChild(e_lcn_headcol_p2score);
-    e_lcn_headcol_p2score.textContent = "Score";
+    let e_scn_headcol_p2score = document.createElement("td");
+    e_scn_headrow.appendChild(e_scn_headcol_p2score);
+    e_scn_headcol_p2score.textContent = "Score";
 
-    let e_lcn_tbody = document.createElement("tbody");
-    e_lcn_table.appendChild(e_lcn_tbody);
+    let e_scn_tbody = document.createElement("tbody");
+    e_scn_table.appendChild(e_scn_tbody);
 
     sel_games.forEach(game => {
         let e_game_row = document.createElement("tr");
-        e_lcn_tbody.appendChild(e_game_row);
+        e_scn_tbody.appendChild(e_game_row);
 
         let e_game_col_round = document.createElement("td");
         e_game_row.appendChild(e_game_col_round);
@@ -508,10 +552,10 @@ function selectClub(club) {
     });
     participants.sort((a,b) => a.wins > b.wins ? -1 : a.wins < b.wins ? 1 : a.spread > b.spread ? -1 : 1);
     let winner = participants[0];
-    let e_lcn_tfoot = document.createElement("tfoot");
-    e_lcn_table.appendChild(e_lcn_tfoot);
+    let e_scn_tfoot = document.createElement("tfoot");
+    e_scn_table.appendChild(e_scn_tfoot);
     let e_winner_row = document.createElement("tr");
-    e_lcn_tfoot.appendChild(e_winner_row);
+    e_scn_tfoot.appendChild(e_winner_row);
     let e_winner_col = document.createElement("td");
     e_winner_row.appendChild(e_winner_col);
     e_winner_col.setAttribute("colSpan", "5");
@@ -523,10 +567,6 @@ function selectClub(club) {
 function closeClub() {
     e_players.style.display = "block";
     e_club.textContent = "";
-
-
-
-
 }
 
 function displayPlayersInfo() {
