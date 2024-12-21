@@ -561,6 +561,16 @@ function displayClubNight() {
     e_winner_col.setAttribute("colSpan", "5");
     e_winner_col.textContent = `Winner: ${winner.name} ${winner.wins}-${winner.losses} ${winner.spread > -1 ? '+' : ''}${winner.spread}`;
 
+    let runnerup = participants[1];
+    if (runnerup.losses === 0) {
+        let e_runnerup_row = document.createElement("tr");
+        e_scn_tfoot.appendChild(e_runnerup_row);
+        let e_runnerup_col = document.createElement("td");
+        e_runnerup_row.appendChild(e_runnerup_col);
+        e_runnerup_col.setAttribute("colSpan", "5");
+        e_runnerup_col.textContent = `Second: ${runnerup.name} ${runnerup.wins}-${runnerup.losses} ${runnerup.spread > -1 ? '+' : ''}${runnerup.spread}`;
+    }
+
     e_players.style.display = "none"; // Remove player list
 }
 
