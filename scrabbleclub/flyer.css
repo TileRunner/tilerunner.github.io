@@ -27,4 +27,6 @@ table {
     border-collapse: separate; /* Ensure border-spacing works */
     border-spacing: 10px 15px; /* Horizontal and vertical spacing */
 }
-  
+img {
+    border-radius: 50%;
+}
