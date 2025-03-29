@@ -10,11 +10,8 @@ th {
 tr td {
     background-color: cadetblue;
     color: black;
-    padding: 1vw;
+    padding: 5px;
     font-size: larger;
-}
-tr {
-    padding-bottom: 50px;
 }
 h1, h2 {
     text-align: center;
@@ -25,7 +22,7 @@ table {
 }
 table {
     border-collapse: separate; /* Ensure border-spacing works */
-    border-spacing: 10px 15px; /* Horizontal and vertical spacing */
+    border-spacing: 10px 5px; /* Horizontal and vertical spacing */
 }
 img {
     border-radius: 50%;
