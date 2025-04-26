@@ -116,63 +116,63 @@ const XC1_2 = solution.bestGroups[2][1].firstName;
 const XC2_1 = solution.bestGroups[2][2].firstName;
 const XC2_2 = solution.bestGroups[2][3].firstName;
 
-document.getElementById("Xr1g1").textContent = `${XA1_1} vs ${XB1_1}`;
-document.getElementById("Xr1g2").textContent = `${XA1_2} vs ${XB1_2}`;
-document.getElementById("Xr2g1").textContent = `${XA1_1} vs ${XB1_2}`;
-document.getElementById("Xr2g2").textContent = `${XA1_2} vs ${XB1_1}`;
+document.getElementById("Xr1g1").textContent = `${XA1_1} (1st) vs ${XB1_1}`;
+document.getElementById("Xr1g2").textContent = `${XA1_2} (1st) vs ${XB1_2}`;
+document.getElementById("Xr2g1").textContent = `${XA1_1} vs ${XB1_2} (1st)`;
+document.getElementById("Xr2g2").textContent = `${XA1_2} vs ${XB1_1} (1st)`;
 
-document.getElementById("Xr1g3").textContent = `${XA2_1} vs ${XC1_1}`;
-document.getElementById("Xr1g4").textContent = `${XA2_2} vs ${XC1_2}`;
-document.getElementById("Xr2g3").textContent = `${XA2_1} vs ${XC1_2}`;
-document.getElementById("Xr2g4").textContent = `${XA2_2} vs ${XC1_1}`;
+document.getElementById("Xr1g3").textContent = `${XA2_1} vs ${XC1_1} (1st)`;
+document.getElementById("Xr1g4").textContent = `${XA2_2} vs ${XC1_2} (1st)`;
+document.getElementById("Xr2g3").textContent = `${XA2_1} (1st) vs ${XC1_2}`;
+document.getElementById("Xr2g4").textContent = `${XA2_2} (1st) vs ${XC1_1}`;
 
-document.getElementById("Xr1g5").textContent = `${XB2_1} vs ${XC2_1}`;
-document.getElementById("Xr1g6").textContent = `${XB2_2} vs ${XC2_2}`;
-document.getElementById("Xr2g5").textContent = `${XB2_1} vs ${XC2_2}`;
-document.getElementById("Xr2g6").textContent = `${XB2_2} vs ${XC2_1}`;
+document.getElementById("Xr1g5").textContent = `${XB2_1} (1st) vs ${XC2_1}`;
+document.getElementById("Xr1g6").textContent = `${XB2_2} (1st) vs ${XC2_2}`;
+document.getElementById("Xr2g5").textContent = `${XB2_1} vs ${XC2_2} (1st)`;
+document.getElementById("Xr2g6").textContent = `${XB2_2} vs ${XC2_1} (1st)`;
 
-document.getElementById("Xr3g1").textContent = `${XA1_1} vs ${XC1_1}`;
-document.getElementById("Xr3g2").textContent = `${XA1_2} vs ${XC1_2}`;
-document.getElementById("Xr4g1").textContent = `${XA1_1} vs ${XC1_2}`;
-document.getElementById("Xr4g2").textContent = `${XA1_2} vs ${XC1_1}`;
+document.getElementById("Xr3g1").textContent = `${XA1_1} (1st) vs ${XC1_1}`;
+document.getElementById("Xr3g2").textContent = `${XA1_2} (1st) vs ${XC1_2}`;
+document.getElementById("Xr4g1").textContent = `${XA1_1} vs ${XC1_2} (1st)`;
+document.getElementById("Xr4g2").textContent = `${XA1_2} vs ${XC1_1} (1st)`;
 
-document.getElementById("Xr3g3").textContent = `${XA2_1} vs ${XB2_1}`;
-document.getElementById("Xr3g4").textContent = `${XA2_2} vs ${XB2_2}`;
-document.getElementById("Xr4g3").textContent = `${XA2_1} vs ${XB2_2}`;
-document.getElementById("Xr4g4").textContent = `${XA2_2} vs ${XB2_1}`;
+document.getElementById("Xr3g3").textContent = `${XA2_1} (1st) vs ${XB2_1}`;
+document.getElementById("Xr3g4").textContent = `${XA2_2} (1st) vs ${XB2_2}`;
+document.getElementById("Xr4g3").textContent = `${XA2_1} vs ${XB2_2} (1st)`;
+document.getElementById("Xr4g4").textContent = `${XA2_2} vs ${XB2_1} (1st)`;
 
-document.getElementById("Xr3g5").textContent = `${XB1_1} vs ${XC2_1}`;
-document.getElementById("Xr3g6").textContent = `${XB1_2} vs ${XC2_2}`;
-document.getElementById("Xr4g5").textContent = `${XB1_1} vs ${XC2_2}`;
-document.getElementById("Xr4g6").textContent = `${XB1_2} vs ${XC2_1}`;
+document.getElementById("Xr3g5").textContent = `${XB1_1} (1st) vs ${XC2_1}`;
+document.getElementById("Xr3g6").textContent = `${XB1_2} (1st) vs ${XC2_2}`;
+document.getElementById("Xr4g5").textContent = `${XB1_1} vs ${XC2_2} (1st)`;
+document.getElementById("Xr4g6").textContent = `${XB1_2} vs ${XC2_1} (1st)`;
 
-document.getElementById("Xr5g1").textContent = `${XA1_1} vs ${XC2_1}`;
-document.getElementById("Xr5g2").textContent = `${XA1_2} vs ${XC2_2}`;
-document.getElementById("Xr6g1").textContent = `${XA1_1} vs ${XC2_2}`;
-document.getElementById("Xr6g2").textContent = `${XA1_2} vs ${XC2_1}`;
+document.getElementById("Xr5g1").textContent = `${XA1_1} (1st) vs ${XC2_1}`;
+document.getElementById("Xr5g2").textContent = `${XA1_2} (1st) vs ${XC2_2}`;
+document.getElementById("Xr6g1").textContent = `${XA1_1} vs ${XC2_2} (1st)`;
+document.getElementById("Xr6g2").textContent = `${XA1_2} vs ${XC2_1} (1st)`;
 
-document.getElementById("Xr5g3").textContent = `${XA2_1} vs ${XB1_1}`;
-document.getElementById("Xr5g4").textContent = `${XA2_2} vs ${XB1_2}`;
-document.getElementById("Xr6g3").textContent = `${XA2_1} vs ${XB1_2}`;
-document.getElementById("Xr6g4").textContent = `${XA2_2} vs ${XB1_1}`;
+document.getElementById("Xr5g3").textContent = `${XA2_1} vs ${XB1_1} (1st)`;
+document.getElementById("Xr5g4").textContent = `${XA2_2} vs ${XB1_2} (1st)`;
+document.getElementById("Xr6g3").textContent = `${XA2_1} (1st) vs ${XB1_2}`;
+document.getElementById("Xr6g4").textContent = `${XA2_2} (1st) vs ${XB1_1}`;
 
-document.getElementById("Xr5g5").textContent = `${XB2_1} vs ${XC1_1}`;
-document.getElementById("Xr5g6").textContent = `${XB2_2} vs ${XC1_2}`;
-document.getElementById("Xr6g5").textContent = `${XB2_1} vs ${XC1_2}`;
-document.getElementById("Xr6g6").textContent = `${XB2_2} vs ${XC1_1}`;
+document.getElementById("Xr5g5").textContent = `${XB2_1} vs ${XC1_1} (1st)`;
+document.getElementById("Xr5g6").textContent = `${XB2_2} vs ${XC1_2} (1st)`;
+document.getElementById("Xr6g5").textContent = `${XB2_1} (1st) vs ${XC1_2}`;
+document.getElementById("Xr6g6").textContent = `${XB2_2} (1st) vs ${XC1_1}`;
 
-document.getElementById("Xr7g1").textContent = `${XA1_1} vs ${XB2_1}`;
-document.getElementById("Xr7g2").textContent = `${XA1_2} vs ${XB2_2}`;
-document.getElementById("Xr8g1").textContent = `${XA1_1} vs ${XB2_2}`;
-document.getElementById("Xr8g2").textContent = `${XA1_2} vs ${XB2_1}`;
+document.getElementById("Xr7g1").textContent = `${XA1_1} (1st) vs ${XB2_1}`;
+document.getElementById("Xr7g2").textContent = `${XA1_2} (1st) vs ${XB2_2}`;
+document.getElementById("Xr8g1").textContent = `${XA1_1} vs ${XB2_2} (1st)`;
+document.getElementById("Xr8g2").textContent = `${XA1_2} vs ${XB2_1} (1st)`;
 
-document.getElementById("Xr7g3").textContent = `${XA2_1} vs ${XC2_1}`;
-document.getElementById("Xr7g4").textContent = `${XA2_2} vs ${XC2_2}`;
-document.getElementById("Xr8g3").textContent = `${XA2_1} vs ${XC2_2}`;
-document.getElementById("Xr8g4").textContent = `${XA2_2} vs ${XC2_1}`;
+document.getElementById("Xr7g3").textContent = `${XA2_1} (1st) vs ${XC2_1}`;
+document.getElementById("Xr7g4").textContent = `${XA2_2} (1st) vs ${XC2_2}`;
+document.getElementById("Xr8g3").textContent = `${XA2_1} vs ${XC2_2} (1st)`;
+document.getElementById("Xr8g4").textContent = `${XA2_2} vs ${XC2_1} (1st)`;
 
-document.getElementById("Xr7g5").textContent = `${XB1_1} vs ${XC1_1}`;
-document.getElementById("Xr7g6").textContent = `${XB1_2} vs ${XC1_2}`;
-document.getElementById("Xr8g5").textContent = `${XB1_1} vs ${XC1_2}`;
-document.getElementById("Xr8g6").textContent = `${XB1_2} vs ${XC1_1}`;
+document.getElementById("Xr7g5").textContent = `${XB1_1} (1st) vs ${XC1_1}`;
+document.getElementById("Xr7g6").textContent = `${XB1_2} (1st) vs ${XC1_2}`;
+document.getElementById("Xr8g5").textContent = `${XB1_1} vs ${XC1_2} (1st)`;
+document.getElementById("Xr8g6").textContent = `${XB1_2} vs ${XC1_1} (1st)`;
 
