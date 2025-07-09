@@ -1,4 +1,7 @@
 const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+const correctLetterCorrectPositionKB = 'correct-letter-correct-position-KB';
+const correctLetterWrongPositionKB = 'correct-letter-wrong-position-KB';
+const wrongLetterKB = 'wrong-letter-KB';
 let wordLength = 0;
 let targetWord = '';
 let guesses = [];
@@ -93,6 +96,14 @@ function handleDeleteLetter() {
 function displayGuesses()
 {
     e_guess_table_body.innerHTML = ''; // Clear previous
+    // Clear keyboard special colours
+    for (let l = 0; l < 26; l++) {
+        let e = document.getElementById(`click-${letters[l]}`);
+        e.classList.remove(correctLetterCorrectPositionKB);
+        e.classList.remove(correctLetterWrongPositionKB);
+        e.classList.remove(wrongLetterKB);
+    }
+
     if (currentGuess.length > 0)
     {
         displayGuess(currentGuess);
@@ -122,8 +133,10 @@ function calcLetterStyle(guessLetters, guessLetterIndex) {
         return "undetermined";
     }
     let letter = guessLetters[guessLetterIndex];
+    let e = document.getElementById(`click-${letter}`); // The element for the letter on the ekyboard
     // guessLetters is the whole guess, guessLetterIndex is the letter index for which we want the css style name
     if (letter === targetWord[guessLetterIndex]) {
+        e.classList.add(correctLetterCorrectPositionKB);
         return "correct-letter-correct-position";
     }
     if (targetWord.indexOf(letter) > -1) {
@@ -137,6 +150,10 @@ function calcLetterStyle(guessLetters, guessLetterIndex) {
                 for(let j = nextjstart; !jfound && j < targetWord.length; j++) {
                     if (guessLetters[j] === letter && targetWord[j] !== letter) {
                         if (j === guessLetterIndex) {
+                            if (!e.classList.contains(correctLetterCorrectPositionKB))
+                            {
+                                e.classList.add(correctLetterWrongPositionKB);
+                            }
                             return "correct-letter-wrong-position";
                         }
                         jfound = true;
@@ -145,6 +162,9 @@ function calcLetterStyle(guessLetters, guessLetterIndex) {
                 }
             }
         }
+    }
+    if (!e.classList.contains(correctLetterCorrectPositionKB) && !e.classList.contains(correctLetterWrongPositionKB)) {
+        e.classList.add(wrongLetterKB);
     }
     return "wrong-letter";
 }

@@ -1,3 +1,9 @@
+:root {
+    --guessedCorrectPositionBG: lightgreen;
+    --guessedWrongPositionBG: cornflowerblue;
+    --guessedWrongLetterBG: darkgrey;
+    --notGuessed: blue;
+}
 .options-div {
     height: 5vh;
     padding-bottom: 5vh;
@@ -59,14 +65,14 @@ button {
 .customKeyboard span {
     border: 1px solid white;
     border-radius: 5px;
-    background-color: blue;
+    /*background-color: blue;*/
     text-align: center;
     margin: 0px 2px;
     padding: 5px 8px;
     font-size: large;
 }
 .backspace {
-    background-color: blue;
+    background-color: var(--notGuessed);
 }
 .backspace::before {
     content: '\003Cx';
@@ -79,10 +85,11 @@ button {
 }
 .guess-col {
     font-family: 'Courier New', Courier, monospace;
+    font-size: large;
     letter-spacing: 2px;
     text-align: center;
     border: 1px solid white;
-    background-color: blue;
+    background-color: var(--notGuessed);
     color: white;
 }
 .legend {
@@ -96,19 +103,28 @@ button {
 }
 .correct-letter-correct-position {
     font-size: 50px;
-    background-color: greenyellow;
+    background-color: var(--guessedCorrectPositionBG);
     color: black;
     font-weight: bold;
 }
+.correct-letter-correct-position-KB {
+    background-color: var(--guessedCorrectPositionBG);
+}
 .correct-letter-wrong-position {
     font-size: 50px;
-    background-color: cornflowerblue;
+    background-color: var(--guessedWrongPositionBG);
     color: black;
+}
+.correct-letter-wrong-position-KB {
+    background-color: var(--guessedWrongPositionBG);
 }
 .wrong-letter {
     font-size: 50px;
-    background-color: darkgrey;
+    background-color: var(--guessedWrongLetterBG);
     color: black;
+}
+.wrong-letter-KB {
+    background-color: var(--guessedWrongLetterBG);
 }
 .undetermined {
     font-size: 50px;
