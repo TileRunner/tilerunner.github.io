@@ -92,15 +92,6 @@ button {
     background-color: var(--notGuessed);
     color: white;
 }
-.legend {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: larger;
-    font-style: italic;
-    text-align: left;
-    background-color: blue;
-    color: white;
-    width: 370px;
-}
 .correct-letter-correct-position {
     font-size: 50px;
     background-color: var(--guessedCorrectPositionBG);
@@ -130,4 +121,9 @@ button {
     font-size: 50px;
     background-color: purple;
     color: whitesmoke;
+}
+.unguessedColumn {
+    font-size: 50px;
+    background-color: black;
+    color: black;
 }

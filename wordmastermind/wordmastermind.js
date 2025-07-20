@@ -12,18 +12,17 @@ const e_options = document.getElementById("options-div");
 const e_hint = document.getElementById("hint-div");
 const e_keyboard = document.getElementById("keyboard-div");
 const e_guess_table_body = document.getElementById("guess-table-body");
-const e_legend = document.getElementById("legend");
-e_legend.style.display = "none";
 e_keyboard.style.display = "none";
 
 for (let l = 3; l < 10; l++) {
-    document.getElementById(`${l}-move-puzzle`).addEventListener("click", () => generatePuzzle(l));  
+    document.getElementById(`${l}-letter-puzzle`).addEventListener("click", () => generatePuzzle(l));  
 }
 for (let l = 0; l < 26; l++) {
     document.getElementById(`click-${letters[l]}`).addEventListener("click", () => handleInputLetter(letters[l]));
 }
 document.getElementById("click-backspace").addEventListener("click", () => handleDeleteLetter());
 document.getElementById("show-hint").addEventListener("click", () => showHint());
+document.getElementById("explain-colors").addEventListener("click",() => explainColors());
 
 function generatePuzzle(chosenLength) {
     wordLength = chosenLength;
@@ -39,7 +38,6 @@ async function getInfo() {
     guesses = [];
     solving = true;
     solved = false;
-    e_legend.style.display = "block";
     e_keyboard.style.display = "block";
     displayGuesses();
 }
@@ -69,7 +67,6 @@ async function handleInputLetter(letter) {
         guesses.push(currentGuess);
         if (currentGuess === targetWord)
         {
-            e_legend.style.display = "none";
             e_options.style.display = "block";
             e_hint.textContent = `Solved in ${guesses.length} moves ${guesses.length > 5 ? '.' : '!'} Click a number to replay.`;
             e_keyboard.style.display = "none";
@@ -117,12 +114,18 @@ function displayGuess(display_guess)
 {
     let e_guess_row = document.createElement("tr");
     e_guess_row.classList.add("guess-row");
-    for(let i = 0; i < display_guess.length; i++)
+    for(let i = 0; i < wordLength; i++)
     {
         let e_guess_col = document.createElement("td");
         e_guess_col.classList.add("guess-col");
-        e_guess_col.classList.add(calcLetterStyle(display_guess, i));
-        e_guess_col.textContent = display_guess[i];
+        if (i < display_guess.length)
+        {
+            e_guess_col.classList.add(calcLetterStyle(display_guess, i));
+            e_guess_col.textContent = display_guess[i];
+        } else {
+            e_guess_col.classList.add('unguessedColumn');
+            e_guess_col.textContent = '?';
+        }
         e_guess_row.appendChild(e_guess_col);
     }
     e_guess_table_body.appendChild(e_guess_row);
@@ -197,4 +200,8 @@ function showHint() {
     } else {
         alert(`Letter ${hintIndex + 1} is ${targetWord[hintIndex]}`);
     }
+}
+
+function explainColors() {
+    alert('Green=Correct Position, Blue=Wrong Position, Grey=Wrong Letter');
 }
