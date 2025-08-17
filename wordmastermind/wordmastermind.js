@@ -13,6 +13,10 @@ const e_hint = document.getElementById("hint-div");
 const e_keyboard = document.getElementById("keyboard-div");
 const e_guess_table_body = document.getElementById("guess-table-body");
 e_keyboard.style.display = "none";
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Delete') handleDeleteLetter();
+    if (letters.includes(e.key.toUpperCase())) handleInputLetter(e.key.toUpperCase());
+});
 
 for (let l = 3; l < 10; l++) {
     document.getElementById(`${l}-letter-puzzle`).addEventListener("click", () => generatePuzzle(l));  
@@ -43,7 +47,6 @@ async function getInfo() {
 }
 
 function displayInfo() {
-    console.log(`Random word is ${targetWord}`);
     e_hint.textContent = "Click letters below to form your guess";
 }
 
