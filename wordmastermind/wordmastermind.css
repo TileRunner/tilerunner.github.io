@@ -4,6 +4,24 @@
     --guessedWrongLetterBG: darkgrey;
     --notGuessed: blue;
 }
+.desktopBody {
+    font-size: 2vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: whitesmoke;
+    text-align: center;
+}
+.desktopHint {
+    font-size: 3vh !important;
+    font-style: italic;
+}
+.desktopKeyboard {
+    margin: auto;
+}
+.desktopGuesses {
+    display: inline-block;
+    margin: auto;
+}
 .options-div {
     height: 5vh;
     padding-bottom: 5vh;

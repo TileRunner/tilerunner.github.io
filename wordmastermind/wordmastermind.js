@@ -1,4 +1,5 @@
 const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+const validLengths = [3,4,5,6,7,8,9];
 const correctLetterCorrectPositionKB = 'correct-letter-correct-position-KB';
 const correctLetterWrongPositionKB = 'correct-letter-wrong-position-KB';
 const wrongLetterKB = 'wrong-letter-KB';
@@ -14,8 +15,9 @@ const e_keyboard = document.getElementById("keyboard-div");
 const e_guess_table_body = document.getElementById("guess-table-body");
 e_keyboard.style.display = "none";
 window.addEventListener('keydown', (e) => {
-    if (e.key === 'Delete') handleDeleteLetter();
-    if (letters.includes(e.key.toUpperCase())) handleInputLetter(e.key.toUpperCase());
+    if ((e.key === 'Delete') || (e.key === 'Backspace')) handleDeleteLetter();
+    if ((e.key.length === 1) && (letters.includes(e.key.toUpperCase()))) handleInputLetter(e.key.toUpperCase());
+    if ((!solving || solved) && (validLengths.includes(parseInt(e.key)))) generatePuzzle(parseInt(e.key));
 });
 
 for (let l = 3; l < 10; l++) {
@@ -28,6 +30,15 @@ document.getElementById("click-backspace").addEventListener("click", () => handl
 document.getElementById("show-hint").addEventListener("click", () => showHint());
 document.getElementById("explain-colors").addEventListener("click",() => explainColors());
 
+if (isMobileDevice()) {
+    e_hint.textContent = "Tap a number to start a new puzzle";
+} else {
+    document.getElementById("body").classList.add("desktopBody");
+    e_hint.classList.add("desktopHint");
+    e_hint.textContent = "Click or type a number to start a new puzzle";
+    e_keyboard.classList.add("desktopKeyboard");
+    document.getElementById("guesses-div").classList.add("desktopGuesses");
+}
 function generatePuzzle(chosenLength) {
     wordLength = chosenLength;
     e_options.style.display = "none";
@@ -47,9 +58,24 @@ async function getInfo() {
 }
 
 function displayInfo() {
-    e_hint.textContent = "Click letters below to form your guess";
+    if (isMobileDevice()) {
+        e_hint.textContent = "Tap letters below to form your guess";
+    } else {
+        e_hint.textContent = "Type letters or click letters below to form your guess";
+    }
 }
-
+function isMobileDevice() {
+    if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)) {
+        return true;
+    }
+    return false;
+}
 async function handleInputLetter(letter) {
     if (!solving)
     {
@@ -71,7 +97,11 @@ async function handleInputLetter(letter) {
         if (currentGuess === targetWord)
         {
             e_options.style.display = "block";
-            e_hint.textContent = `Solved in ${guesses.length} moves ${guesses.length > 5 ? '.' : '!'} Click a number to replay.`;
+            if (isMobileDevice()) {
+                e_hint.textContent = `Solved in ${guesses.length} moves ${guesses.length > 5 ? '.' : '!'} Tap a number to replay.`;
+            } else {
+                e_hint.textContent = `Solved in ${guesses.length} moves ${guesses.length > 5 ? '.' : '!'} Click or type a number to replay.`;
+            }
             e_keyboard.style.display = "none";
             solved = true;
             solving = false;
