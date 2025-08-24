@@ -11,6 +11,10 @@
     color: whitesmoke;
     text-align: center;
 }
+.mobileBody {
+    background-color: black;
+    color: whitesmoke;
+}
 .desktopHint {
     font-size: 3vh !important;
     font-style: italic;
@@ -21,6 +25,10 @@
 .desktopGuesses {
     display: inline-block;
     margin: auto;
+}
+a#NASPALink {
+    color: lightblue;
+    text-decoration: none;
 }
 .options-div {
     height: 5vh;

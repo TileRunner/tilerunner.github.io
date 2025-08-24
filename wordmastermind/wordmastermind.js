@@ -32,6 +32,7 @@ document.getElementById("explain-colors").addEventListener("click",() => explain
 
 if (isMobileDevice()) {
     e_hint.textContent = "Tap a number to start a new puzzle";
+    document.getElementById("body").classList.add("mobileBody");
 } else {
     document.getElementById("body").classList.add("desktopBody");
     e_hint.classList.add("desktopHint");
