@@ -19,6 +19,9 @@ async function callForPuzzle(numMoves)  {
             data.targetWord = responsedata.value.targetWord;
             data.validNextDownWords = await getTransmogrifyValidNextWords(data.startWord);
             data.validNextUpWords = await getTransmogrifyValidNextWords(data.targetWord);
+            // Sort the valid next words alphabetically
+            data.validNextDownWords.sort();
+            data.validNextUpWords.sort();
             data.solving = true;
         }
     } catch (error) {

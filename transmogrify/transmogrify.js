@@ -108,7 +108,7 @@ function displayInfo() {
             let e_vnw = document.createElement("span");
             let spacer = "";
             if (i < info.validNextDownWords.length - 1) {
-                spacer = ",";
+                spacer = ", ";
             }
             e_vnw.textContent = info.validNextDownWords[i] + spacer;
             e_vnw.addEventListener("click", () => handleClickValidDownWord(info.validNextDownWords[i]));
@@ -121,7 +121,7 @@ function displayInfo() {
             let e_vnw = document.createElement("span");
             let spacer = "";
             if (i < info.validNextUpWords.length - 1) {
-                spacer = ",";
+                spacer = ", ";
             }
             e_vnw.textContent = info.validNextUpWords[i] + spacer;
             e_vnw.addEventListener("click", () => handleClickValidUpWord(info.validNextUpWords[i]));
@@ -144,10 +144,12 @@ function displayInfo() {
 async function handleClickValidDownWord(word) {
     info.downWords.push(word);
     info.validNextDownWords = await getTransmogrifyValidNextWords(word);
+    info.validNextDownWords.sort();
     displayInfo();
 }
 async function handleClickValidUpWord(word) {
     info.upWords.push(word);
     info.validNextUpWords = await getTransmogrifyValidNextWords(word);
+    info.validNextUpWords.sort();
     displayInfo();
 }

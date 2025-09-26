@@ -76,7 +76,7 @@ a {
     color: whitesmoke;
 }
 .tm_validWordsDiv {
-    width: 370px;
+    width: 98vw; /* was 370px*/
     display: flex;
     flex-wrap: wrap;
     background-color: #404040;
