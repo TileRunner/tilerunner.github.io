@@ -173,6 +173,8 @@ function calcLetterStyle(guessLetters, guessLetterIndex) {
     let e = document.getElementById(`click-${letter}`); // The element for the letter on the ekyboard
     // guessLetters is the whole guess, guessLetterIndex is the letter index for which we want the css style name
     if (letter === targetWord[guessLetterIndex]) {
+        e.classList.remove(correctLetterWrongPositionKB);
+        e.classList.remove(wrongLetterKB);
         e.classList.add(correctLetterCorrectPositionKB);
         return "correct-letter-correct-position";
     }
@@ -187,6 +189,7 @@ function calcLetterStyle(guessLetters, guessLetterIndex) {
                 for(let j = nextjstart; !jfound && j < targetWord.length; j++) {
                     if (guessLetters[j] === letter && targetWord[j] !== letter) {
                         if (j === guessLetterIndex) {
+                            e.classList.remove(wrongLetterKB);
                             if (!e.classList.contains(correctLetterCorrectPositionKB))
                             {
                                 e.classList.add(correctLetterWrongPositionKB);
